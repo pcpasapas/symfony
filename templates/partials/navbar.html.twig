@@ -1,0 +1,40 @@
+
+<nav class="navbar navbar-expand-md navbar-dark bg-primary fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{{ path('homepage') }}">Pc pas à pas</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav me-auto mb-2 mb-md-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="homepage" href="{{ path('homepage') }}">Accueil</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" aria-current="category" href="{{ path('category') }}">Catégories</a>
+        </li>
+        {% if is_granted('ROLE_ADMIN') %}
+            <li class="nav-item">
+            <a class="nav-link" href="{{ path('astuces') }}">Astuces</a>
+            </li>
+          <li class="nav-item">
+          <a class="nav-link" href="{{ path('tests') }}">Tests</a>
+          </li>
+      {% endif %}
+      </ul>
+    <div class="d-flex mr-3">
+        {% if app.user == "" %}
+            <a href="{{ path('app_login')}}" class="text-white">Se connecter</a>
+            <a href="{{ path('app_register') }}" class="ms-3 text-white">Créer un compte</a>
+        {% endif %}
+        {% if app.user %}
+            <span class="text-white">Vous êtes connecté en tant que {{ app.user.username }}</span>
+            <a class="text-white ms-3" href="{{ path('app_logout')}}">Se déconnecter</a>
+        {% endif %}
+    </div>
+    </div>
+  </div>
+</nav>
+
+
+

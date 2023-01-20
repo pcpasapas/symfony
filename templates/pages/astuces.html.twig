@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Astuces{% endblock %}
+
+{% block body %}
+    <h1>Symphony</h1>
+    <h2>Console</h2>
+
+    <div x-data="{ open :false}">
+    <button x-on:click="open = ! open" class="btn btn-outline-primary">Créer un formulaire</button>
+        <div x-cloak x-transition x-show="open">
+        <p>symphony console make:form "ENTITY"FormType "ENTITY"</p>
+        <p>symfony console make:form CategorieFormType Categorie</p>
+        </div>
+    </div>
+
+    <div x-data="{ open :false}">
+    <button x-on:click="open = ! open" class="btn btn-outline-primary">Mettre le formulaire dans le controller</button>
+        <div x-cloak x-transition x-show="open">
+            <p> $category = new Categorie(); </p>
+            <p>$form = $this->createForm(CategorieFormType::class, $category);</p>
+        </div>
+    </div>
+
+    <div x-data="{ open :false}">
+    <button x-on:click="open = ! open" class="btn btn-outline-primary">Mettre le formulaire dans le template</button>
+        <div x-cloak x-transition x-show="open">
+            <p><span>{</span><span>{</span> form(category_form) }}</p>
+        </div>
+    </div>
+
+    <div x-data="{ open :false}">
+    <button x-on:click="open = ! open" class="btn btn-outline-primary">Soumettre le formulaire</button>
+        <div x-cloak x-transition x-show="open">
+            <h4>Ajouter le entity manager à la construction du controller :</h4>
+            <textarea class='form-control' style="height: 120px">
+            public function __construct(
+            private EntityManagerInterface $entityManager,
+            ) {
+            }
+            </textarea>
+        </div>
+    </div>
+
+    <div x-data="{ open :false}">
+    <button x-on:click="open = ! open" class="btn btn-outline-primary">Controller le role du user dans le template</button>
+        <div x-cloak x-transition x-show="open">
+            <p><span>{</span><span>{</span>% if is_granted('ROLE_ADMIN') %}</p>
+        </div>
+    </div>
+
+    <div x-data="{ open :false}">
+    <button x-on:click="open = ! open" class="btn btn-outline-primary">Formulaire avec une relation</button>
+        <div x-cloak x-transition x-show="open">
+                <textarea class='form-control' style="height: 120px">
+        public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
+        $builder
+            ->add('marque')
+            ->add('categorie', EntityType::class, [
+                'class' => Categorie::class,
+                'choice_label' => 'name'
+            ])
+            ->add('Envoyer', SubmitType::class)
+        ;
+    }
+    </textarea>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Categories{% endblock %}
+
+{% block body %}
+    <div class="border-bottom pb-3">
+    <h1 class="text-center ">Les catégories</h1>
+    <table>
+    {% for item in categories %}
+        <tbody>
+            <td><h4>{{ item.name }}</h4></td>
+            <td>
+            {% if is_granted('ROLE_ADMIN') %}
+            <form name="delete" id="delete" action="{{ path('app_categorie_delete', {categorie:item.id}) }}" method="POST">
+                <input type="submit" value="Supprimer" class='form-control bg-warning text-danger p-0 ms-4' />
+            </form>
+            {% endif %}
+            <td>
+        </tbody>
+    {% endfor %}
+    </table>
+
+    {% if is_granted('ROLE_ADMIN') %}
+        <h2>Ajouter une catégorie</h2>
+        <div class="container">
+            {{ form(category_form)}}
+        </div>
+    {% endif %}
+    </div>
+
+    <h1 class="text-center">Les composants</h1>
+    <table class='table table-sm mx-3 '>
+        <thead class="table-secondary">
+            <th>Catégorie</th>
+            <th>Marque</th>
+            <th>Modele</th>
+            <th>Prix</th>
+            <th></th>
+        </thead>
+    {% for item in composants %}
+        <tbody>
+            <th>{{ item.categorie.name }}</th>
+            <td>{{ item.marque }}</td>
+            <td>{{ item.modele }}</td>
+            <td>{{ item.price }} </td>
+            <td>
+            {% if is_granted('ROLE_ADMIN') %}
+            <form name="delete" id="delete" action="{{ path('app_composant_delete', {composant:item.id}) }}" method="POST">
+                <input type="submit" value="Supprimer" class='form-control bg-warning text-danger p-0' />
+            </form>
+            {% endif %}
+            <td>
+        </tbody>
+    {% endfor %}
+    </table>
+
+    {% if is_granted('ROLE_ADMIN') %}
+    <h2>Ajouter un composant</h2>
+        <div class="container">
+            {{ form(composant_form)}}
+        </div>
+    {% endif %}
+
+{% endblock %}
