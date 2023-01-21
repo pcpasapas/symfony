@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "696bd1446f270559e2ce419fdcec3bd4",
+    "content-hash": "c3cd1a6487d5a7313da6d149de24e8e3",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -7743,6 +7743,49 @@
         }
     ],
     "packages-dev": [
+        {
+            "name": "deployer/deployer",
+            "version": "v7.1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/deployphp/deployer.git",
+                "reference": "9c9a8187413e191606efaffa393e96f625f1868e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/deployphp/deployer/zipball/9c9a8187413e191606efaffa393e96f625f1868e",
+                "reference": "9c9a8187413e191606efaffa393e96f625f1868e",
+                "shasum": ""
+            },
+            "bin": [
+                "dep"
+            ],
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Anton Medvedev",
+                    "email": "anton@medv.io"
+                }
+            ],
+            "description": "Deployment Tool",
+            "homepage": "https://deployer.org",
+            "support": {
+                "docs": "https://deployer.org/docs",
+                "issues": "https://github.com/deployphp/deployer/issues",
+                "source": "https://github.com/deployphp/deployer"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/sponsors/antonmedv",
+                    "type": "github"
+                }
+            ],
+            "time": "2023-01-18T18:00:30+00:00"
+        },
         {
             "name": "masterminds/html5",
             "version": "2.7.6",
