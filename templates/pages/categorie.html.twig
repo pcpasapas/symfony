@@ -28,23 +28,33 @@
     {% endif %}
     </div>
 
+    {# Tableau des composants #}
     <h1 class="text-center">Les composants</h1>
-    <table class='table table-sm mx-3 '>
+    <table class='table mx-3 text-center'>
         <thead class="table-secondary">
             <th>Catégorie</th>
+            <th>Image</th>
             <th>Marque</th>
             <th>Modele</th>
             <th>Prix</th>
+            <th>Dimensions</th>
+            <th>Couleur</th>
             <th></th>
         </thead>
     {% for item in composants %}
         <tbody>
             <th>{{ item.categorie.name }}</th>
+            <td><img style="width:10%; height:10%;" class="col-lg-1" src="{{ asset("images/") ~ item.categorie.name ~ item.id ~ '.jpg'}}"</td>
             <td>{{ item.marque }}</td>
-            <td>{{ item.modele }}</td>
-            <td>{{ item.price }} </td>
+            <td class="col-lg-1">{{ item.modele }}</td>
+            <td class="flex-nowrap col-lg-1">{{ ((item.price)/100)|number_format(2, ',', ' ') }} € </td>
+            <td>{{ item.dimensions }}</td>
+            <td>{{ item.couleur }}</td>
             <td>
             {% if is_granted('ROLE_ADMIN') %}
+            <form name="edit" id="edit" action="{{ path('category', {composant:item.id}) }}" method="POST">
+                <input type="submit" value="Editer" class='form-control bg-warning text-danger p-0' />
+            </form>
             <form name="delete" id="delete" action="{{ path('app_composant_delete', {composant:item.id}) }}" method="POST">
                 <input type="submit" value="Supprimer" class='form-control bg-warning text-danger p-0' />
             </form>
@@ -57,7 +67,7 @@
     {% if is_granted('ROLE_ADMIN') %}
     <h2>Ajouter un composant</h2>
         <div class="container">
-            {{ form(composant_form)}}
+            {% include ('/composant/formulaires/boitiers.html.twig') %}
         </div>
     {% endif %}
 

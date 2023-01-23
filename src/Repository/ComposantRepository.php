@@ -57,7 +57,7 @@ class ComposantRepository extends ServiceEntityRepository
 //    public function findOneBySomeField($value): ?Composant
 //    {
 //        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
+//            ->where('c.id = $value')
 //            ->setParameter('val', $value)
 //            ->getQuery()
 //            ->getOneOrNullResult()

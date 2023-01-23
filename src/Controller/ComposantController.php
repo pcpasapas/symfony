@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Composant;
+use App\Form\ComposantFormType;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,9 +20,24 @@ class ComposantController extends AbstractController
         ]);
     }
 
+    #[Route('/composantEdit', methods: ['POST'], name:'app_composant_edit')]
+    public function edit(ManagerRegistry $doctrine, Request $request): Response
+    {
+        $em = $doctrine->getManager();
+        $id = $request->query->get('composant');
+        $composant = $em->getRepository(Composant::class)->find($id);
+        $composant_form = $this->createForm(ComposantFormType::class, $composant);
+
+        return $this->redirectToRoute('category', [
+            'composant_form' => $composant_form
+        ]);
+
+    }
+
     #[Route('/composantDelete', methods: ['POST'], name: 'app_composant_delete')]
     public function delete(ManagerRegistry $doctrine, Request $request): Response
     {
+        dump($request);
         $em = $doctrine->getManager();
         $id = $request->query->get('composant');
         $composant = $em->getRepository(Composant::class)->find($id);
