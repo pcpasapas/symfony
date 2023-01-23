@@ -57,7 +57,6 @@ class PagesController extends AbstractController
         }
 
         // Récupération des composants
-        dump($request->get('compossant'));
         if ($request->get('composant') === null) {
             $composant = new Composant();
         }else {

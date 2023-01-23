@@ -37,7 +37,6 @@ class ComposantController extends AbstractController
     #[Route('/composantDelete', methods: ['POST'], name: 'app_composant_delete')]
     public function delete(ManagerRegistry $doctrine, Request $request): Response
     {
-        dump($request);
         $em = $doctrine->getManager();
         $id = $request->query->get('composant');
         $composant = $em->getRepository(Composant::class)->find($id);
