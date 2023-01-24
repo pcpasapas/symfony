@@ -29,7 +29,8 @@
         "dev-server": "encore dev-server",
         "dev": "encore dev",
         "watch": "encore dev --watch",
-        "build": "encore production --progress"
+        "build": "encore production --progress",
+        "postinstall": "npm run build"
     },
     "dependencies": {
         "@babel/preset-react": "^7.18.6",
