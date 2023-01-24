@@ -8,19 +8,20 @@
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
         <script src="//unpkg.com/alpinejs" defer></script>
         <style>
         [x-cloak] { display: none !important; }
         </style>
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
     </head>
     <body>
         {% include 'partials/navbar.html.twig' %}
-        <div id="app" class='mt-5 m-2'>
+        <div class='mt-5 m-2'>
         {% include 'partials/flash-messages.html.twig' %}
             {% block body %}{% endblock %}
         </div>
+
     </body>
 </html>

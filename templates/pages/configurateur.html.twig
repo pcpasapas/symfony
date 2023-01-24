@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Configurateur{% endblock %}
+
+{% block body %}
+{% apply inline_css(source("./styles/configurateur.css")) %}
+    <h1 class='text-center'>Configurateur</h1>
+    {% for categorie in categories %}
+    <div id="app" data-categorie={{categorie.name}} >
+    </div>
+    {% endfor %}
+</div>
+{% endapply %}
+{% endblock %}
+

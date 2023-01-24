@@ -11,6 +11,9 @@
           <a class="nav-link active" aria-current="homepage" href="{{ path('homepage') }}">Accueil</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" aria-current="category" href="{{ path('configurateur') }}">Configurateur</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" aria-current="category" href="{{ path('category') }}">Catégories</a>
         </li>
         {% if is_granted('ROLE_ADMIN') %}
@@ -20,6 +23,9 @@
           <li class="nav-item">
           <a class="nav-link" href="{{ path('tests') }}">Tests</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ path('admin') }}">Admin</a>
+            </li>
       {% endif %}
       </ul>
     <div class="d-flex mr-3">

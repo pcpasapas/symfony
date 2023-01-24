@@ -38,9 +38,12 @@ class Composant
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $couleur = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $puissance = null;
+
     public function __toString(): string
     {
-        return $this->marque.' '.$this->categorie;
+        return $this->marque;
     }
 
     public function getId(): ?int
@@ -140,6 +143,18 @@ class Composant
     public function setCouleur(?string $couleur): self
     {
         $this->couleur = $couleur;
+
+        return $this;
+    }
+
+    public function getPuissance(): ?int
+    {
+        return $this->puissance;
+    }
+
+    public function setPuissance(?int $puissance): self
+    {
+        $this->puissance = $puissance;
 
         return $this;
     }

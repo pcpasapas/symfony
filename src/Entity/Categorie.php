@@ -6,8 +6,12 @@ use App\Repository\CategorieRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Metadata\ApiResource;
 
 #[ORM\Entity(repositoryClass: CategorieRepository::class)]
+#[ApiResource]
+
+
 class Categorie
 {
     #[ORM\Id]
@@ -18,12 +22,17 @@ class Categorie
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\OneToMany(mappedBy: 'categorie', targetEntity: Composant::class)]
+    // #[ORM\OneToMany(mappedBy: 'categorie', targetEntity: Composant::class)]
     private Collection $composants;
 
     public function __construct()
     {
         $this->composants = new ArrayCollection();
+    }
+
+    public function __toString(): string
+    {
+        return $this->name;
     }
 
     public function getId(): ?int

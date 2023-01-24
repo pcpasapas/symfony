@@ -19,7 +19,9 @@ use Doctrine\Migrations\Configuration\EntityManager\ManagerRegistryEntityManager
 
 class PagesController extends AbstractController
 {
-    public function __construct(private EntityManagerInterface $entityManager)
+    public function __construct(private EntityManagerInterface $entityManager,
+    private CategorieRepository $categorieRepository,
+    private ComposantRepository $composantRepository,     )
     {}
 
     #[Route('/', name: 'homepage')]
@@ -32,8 +34,7 @@ class PagesController extends AbstractController
 
     #[Route('/category', name: 'category')]
     public function category(
-        CategorieRepository $categorieRepository,
-        ComposantRepository $composantRepository,
+
         Request $request,
         ManagerRegistry $doctrine
         ): Response
@@ -80,8 +81,8 @@ class PagesController extends AbstractController
         }
 
         return $this->render('pages/categorie.html.twig', [
-            'categories' => $categorieRepository->findAll(),
-            'composants' => $composantRepository->findAll(),
+            'categories' => $this->categorieRepository->findAll(),
+            'composants' => $this->composantRepository->findAll(),
             'category_form' => $form,
             'composant_form' => $composant_form
         ]);
@@ -97,6 +98,16 @@ class PagesController extends AbstractController
     public function tests(Request $request): Response
     {
         return $this->render('pages/tests.html.twig');
+    }
+
+    #[Route('/configurateur', name: 'configurateur')]
+    public function configurateur(
+        Request $request ): Response {
+        return $this->render('pages/configurateur.html.twig',
+         [
+            'categories' => $this->categorieRepository->findAll()
+         ]
+    );
     }
 
 
