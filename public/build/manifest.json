@@ -1,14 +1,9 @@
 {
-  "build/app.css": "http://localhost:8080/build/app.css",
-  "build/app.js": "http://localhost:8080/build/app.js",
-  "build/runtime.js": "http://localhost:8080/build/runtime.js",
-  "build/vendors-node_modules_bootstrap_dist_js_bootstrap_esm_js-node_modules_bs-custom-file-input_dis-f2a19d.js": "http://localhost:8080/build/vendors-node_modules_bootstrap_dist_js_bootstrap_esm_js-node_modules_bs-custom-file-input_dis-f2a19d.js",
-  "build/images/Boitiers1.jpg": "http://localhost:8080/build/images/Boitiers1.823be087.jpg",
-  "build/images/Boitiers2.jpg": "http://localhost:8080/build/images/Boitiers2.23f13125.jpg",
-  "build/images/Alimentations7.jpg": "http://localhost:8080/build/images/Alimentations7.1ccc433a.jpg",
-  "build/vendors-node_modules_bootstrap_dist_js_bootstrap_esm_js-node_modules_bs-custom-file-input_dis-a75387.js": "http://localhost:8080/build/vendors-node_modules_bootstrap_dist_js_bootstrap_esm_js-node_modules_bs-custom-file-input_dis-a75387.js",
-  "build/vendors-node_modules_bootstrap_dist_js_bootstrap_esm_js-node_modules_bs-custom-file-input_dis-e61f5e.js": "http://localhost:8080/build/vendors-node_modules_bootstrap_dist_js_bootstrap_esm_js-node_modules_bs-custom-file-input_dis-e61f5e.js",
-  "build/app.jpg": "http://localhost:8080/build/images/Boitiers2.23f13125.jpg",
-  "build/vendors-node_modules_bootstrap_dist_js_bootstrap_esm_js-node_modules_bs-custom-file-input_dis-b07c02.js": "http://localhost:8080/build/vendors-node_modules_bootstrap_dist_js_bootstrap_esm_js-node_modules_bs-custom-file-input_dis-b07c02.js",
-  "build/vendors-node_modules_bootstrap_dist_js_bootstrap_esm_js-node_modules_bs-custom-file-input_dis-c6af8c.js": "http://localhost:8080/build/vendors-node_modules_bootstrap_dist_js_bootstrap_esm_js-node_modules_bs-custom-file-input_dis-c6af8c.js"
+  "build/app.css": "/build/app.1f1e8ee3.css",
+  "build/app.js": "/build/app.3b6efeb7.js",
+  "build/runtime.js": "/build/runtime.188fa053.js",
+  "build/317.1d457aa6.js": "/build/317.1d457aa6.js",
+  "build/images/Boitiers1.jpg": "/build/images/Boitiers1.823be087.jpg",
+  "build/images/Boitiers2.jpg": "/build/images/Boitiers2.23f13125.jpg",
+  "build/images/Alimentations7.jpg": "/build/images/Alimentations7.1ccc433a.jpg"
 }
