@@ -4,9 +4,9 @@ div<template>
         <select @change="onChange" name="catégories" id="categories-select">
             <option v-for="categorie in categories">{{ categorie.name }}</option>
         </select>
-        <div v-if="!loadingcomp">
-            <div v-for="composant in composants">
-                <h1>{{  composant.marque }}</h1>
+        <div class="d-flex" v-if="!loadingcomp">
+            <div  v-for="composant in composants">
+                <cardComposant :composant="composant"></cardComposant>
             </div>
         </div>
 
@@ -14,6 +14,8 @@ div<template>
 </div>
 </template>
 <script>
+
+import cardComposant from './components/cardComposant.vue';
 export default {
     props:['cats'],
     data() {
@@ -31,6 +33,9 @@ export default {
     const response = await fetch('api/categories')
     const data = await response.json()
     this.categories = await data['hydra:member']
+    const response2 = await fetch('/composants/' + this.categorie)
+    this.composants = await response2.json()
+    this.loadingcomp = false;
     this.loadingcat = false;
     },
     methods: {
@@ -42,5 +47,6 @@ export default {
             this.loadingcomp = false;
         }
     },
+    components: {cardComposant}
 }
 </script>
