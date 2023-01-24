@@ -2,16 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\CategorieRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata\ApiResource;
+use App\Repository\CategorieRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+
 
 #[ORM\Entity(repositoryClass: CategorieRepository::class)]
 #[ApiResource]
-
-
 class Categorie
 {
     #[ORM\Id]
@@ -20,9 +19,9 @@ class Categorie
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $name = null;
+    public ?string $name = null;
 
-    // #[ORM\OneToMany(mappedBy: 'categorie', targetEntity: Composant::class)]
+    #[ORM\OneToMany(mappedBy: 'categorie', targetEntity: Composant::class)]
     private Collection $composants;
 
     public function __construct()
@@ -30,10 +29,9 @@ class Categorie
         $this->composants = new ArrayCollection();
     }
 
-    public function __toString(): string
-    {
-        return $this->name;
-    }
+    // public function __toString(): string
+    // {
+    // }
 
     public function getId(): ?int
     {
@@ -52,13 +50,13 @@ class Categorie
         return $this;
     }
 
-    /**
-     * @return Collection<int, Composant>
-     */
-    public function getComposants(): Collection
-    {
-        return $this->composants;
-    }
+    // /**
+    //  * @return Collection<int, Composant>
+    //  */
+    // public function getComposants(): Collection
+    // {
+    //     return $this->composants;
+    // }
 
     public function addComposant(Composant $composant): self
     {

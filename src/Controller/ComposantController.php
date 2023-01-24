@@ -11,6 +11,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ComposantController extends AbstractController
@@ -27,13 +28,11 @@ class ComposantController extends AbstractController
         ]);
     }
 
-    #[Route('/composants/{categorie}', name: 'app_composant_by_composant')]
-    public function index_by_composant(Request $request): Response {
-        $cat = $this->categorieRepo->findOneBy(['name' => $request->get('categorie')]);
-        $cat_id = $cat->getId();
+    #[Route('/composants/{id}', name: 'app_composant_by_composant')]
+    public function index_by_composant(Request $request, Categorie $categorie): JsonResponse {
         $composants = $this->composantRepo->createQueryBuilder('p')
             ->andWhere('p.categorie = :categorie')
-            ->setParameter('categorie', $cat_id)
+            ->setParameter('categorie', $categorie)
             ->setMaxResults(10)
             ->getQuery()
             ->getResult();

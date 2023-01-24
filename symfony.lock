@@ -1,6 +1,6 @@
 {
     "api-platform/core": {
-        "version": "3.0",
+        "version": "3.1",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
@@ -67,20 +67,6 @@
         },
         "files": [
             "./config/packages/nelmio_cors.yaml"
-        ]
-    },
-    "phpunit/phpunit": {
-        "version": "9.5",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "main",
-            "version": "9.3",
-            "ref": "a6249a6c4392e9169b87abf93225f7f9f59025e6"
-        },
-        "files": [
-            "./.env.test",
-            "./phpunit.xml.dist",
-            "./tests/bootstrap.php"
         ]
     },
     "symfony/apache-pack": {
@@ -284,21 +270,6 @@
         "files": [
             "./config/packages/uid.yaml"
         ]
-    },
-    "symfony/ux-live-component": {
-        "version": "2.7",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "main",
-            "version": "2.6",
-            "ref": "73e69baf18f47740d6f58688c5464b10cdacae06"
-        },
-        "files": [
-            "./config/routes/ux_live_component.yaml"
-        ]
-    },
-    "symfony/ux-twig-component": {
-        "version": "v2.7.0"
     },
     "symfony/ux-vue": {
         "version": "v2.7.0"

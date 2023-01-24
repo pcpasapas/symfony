@@ -10,26 +10,24 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Messenger\Transport\Serialization\SerializerInterface as SerializationSerializerInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 
 class CategorieController extends AbstractController
 {
-    // #[Route('/api/categories', name: 'app_categorie_api')]
-    // public function apiGetCategories(CategorieRepository $categorieRepository): JsonResponse
-    // {
-    //     $categories = $categorieRepository->findAll();
-    //     dump($categories);
-    //     return $this->json([
-    //         'categories' => $categories
-    //     ]);
-    // }
-
     #[Route('/categorie', name: 'app_categorie')]
     public function index(): Response
     {
         return $this->render('categorie/index.html.twig', [
             'controller_name' => 'CategorieController',
         ]);
+    }
+
+    #[Route('/api/categorie', name: 'api_categorie')]
+    public function api(CategorieRepository $categorieRepository): JsonResponse
+    {
+        $categories = $categorieRepository->findAll();
+        return $this->Json($categories);
     }
 
 

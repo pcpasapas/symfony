@@ -2,10 +2,16 @@
 
 namespace App\Entity;
 
-use App\Repository\ComposantRepository;
+use App\Entity\Categorie;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Metadata\ApiResource;
+use App\Repository\ComposantRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ComposantRepository::class)]
+// #[ApiResource]
 class Composant
 {
     #[ORM\Id]
@@ -16,7 +22,7 @@ class Composant
     #[ORM\Column(length: 255)]
     private ?string $marque = null;
 
-    #[ORM\ManyToOne(inversedBy: 'composants')]
+    #[ORM\ManyToOne(inversedBy: 'composants', targetEntity: Categorie::class)]
     #[ORM\JoinColumn(nullable: false)]
     private ?Categorie $categorie = null;
 
@@ -40,6 +46,14 @@ class Composant
 
     #[ORM\Column(nullable: true)]
     private ?int $puissance = null;
+
+    #[ORM\OneToMany(mappedBy: 'boitier', targetEntity: Panier::class)]
+    private Collection $paniers;
+
+    public function __construct()
+    {
+        $this->paniers = new ArrayCollection();
+    }
 
     public function __toString(): string
     {
@@ -155,6 +169,36 @@ class Composant
     public function setPuissance(?int $puissance): self
     {
         $this->puissance = $puissance;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Panier>
+     */
+    public function getPaniers(): Collection
+    {
+        return $this->paniers;
+    }
+
+    public function addPanier(Panier $panier): self
+    {
+        if (!$this->paniers->contains($panier)) {
+            $this->paniers->add($panier);
+            $panier->setBoitier($this);
+        }
+
+        return $this;
+    }
+
+    public function removePanier(Panier $panier): self
+    {
+        if ($this->paniers->removeElement($panier)) {
+            // set the owning side to null (unless already changed)
+            if ($panier->getBoitier() === $this) {
+                $panier->setBoitier(null);
+            }
+        }
 
         return $this;
     }

@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Categorie;
 use App\Entity\Composant;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -37,6 +38,17 @@ class ComposantRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function findOneWithCategorie(int $id): ?Composant
+    {
+        return $this->createQueryBuilder('c')
+            ->where('c.id = :val')
+            ->setParameter('val', $id)
+            ->leftJoin(Categorie::class, 'categorie', 'WITH', 'categorie.id = c.categorie')
+            ->getQuery()
+            ->getOneOrNullResult();
+
     }
 
 //    /**

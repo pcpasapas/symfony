@@ -4,10 +4,10 @@
     "minimum-stability": "stable",
     "prefer-stable": true,
     "require": {
-        "php": "8.1.10",
+        "php": "8.1.12",
         "ext-ctype": "*",
         "ext-iconv": "*",
-        "api-platform/core": "^3.0",
+        "api-platform/core": "^3.1",
         "doctrine/annotations": "^1.0",
         "doctrine/doctrine-bundle": "^2.8",
         "doctrine/doctrine-migrations-bundle": "^3.2",
@@ -27,6 +27,7 @@
         "symfony/framework-bundle": "6.2.*",
         "symfony/http-client": "6.2.*",
         "symfony/mailer": "6.2.*",
+        "symfony/maker-bundle": "^1.48",
         "symfony/mime": "6.2.*",
         "symfony/monolog-bundle": "^3.0",
         "symfony/notifier": "6.2.*",
@@ -39,7 +40,6 @@
         "symfony/string": "6.2.*",
         "symfony/translation": "6.2.*",
         "symfony/twig-bundle": "6.2.*",
-        "symfony/ux-live-component": "^2.7",
         "symfony/ux-vue": "^2.7",
         "symfony/validator": "6.2.*",
         "symfony/web-link": "6.2.*",
@@ -97,12 +97,9 @@
         }
     },
     "require-dev": {
-        "deployer/deployer": "^7.1",
-        "phpunit/phpunit": "^9.5",
         "symfony/browser-kit": "6.2.*",
         "symfony/css-selector": "6.2.*",
         "symfony/debug-bundle": "6.2.*",
-        "symfony/maker-bundle": "^1.0",
         "symfony/phpunit-bridge": "^6.2",
         "symfony/stopwatch": "6.2.*",
         "symfony/web-profiler-bundle": "6.2.*"
