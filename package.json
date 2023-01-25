@@ -28,6 +28,7 @@
         "dev": "encore dev",
         "watch": "encore dev --watch",
         "build": "encore production --progress",
+        "git" : "encore production --progress && git add . && git commit -m 'git_push_auto' && git push",
         "postinstall": "npm run build"
     },
     "dependencies": {
