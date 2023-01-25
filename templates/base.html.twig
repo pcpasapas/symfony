@@ -7,21 +7,15 @@
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-
         gtag('config', 'G-153ZZY7C5M');
         </script>
                 <!-- Fin de Google tag (gtag.js) -->
         <meta charset="UTF-8">
-        <title>{% block title %}Bienvenue{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+        <title>{% block title %}Pc pas à pas - Bienvenue{% endblock %}</title>
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
-        <script src="//unpkg.com/alpinejs" defer></script>
-        <style>
-        [x-cloak] { display: none !important; }
-        </style>
+        {# <script src="//unpkg.com/alpinejs" defer></script> #}
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
@@ -29,12 +23,10 @@
     <body>
         {% include 'partials/navbar.html.twig' %}
         <div class='mt-5 m-2'>
-
         {% include 'partials/flash-messages.html.twig' %}
-
             {% block body %}
             {% endblock %}
         </div>
-        <script src='{{ asset('build/app.js') }}'></script>
+        {# <script src='{{ asset('build/app.js') }}'></script> #}
     </body>
 </html>

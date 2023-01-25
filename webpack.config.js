@@ -47,7 +47,7 @@ Encore
         ]
     })
 
-    .enableVueLoader()
+    .enableVueLoader(() => {}, { runtimeCompilerBuild: false })
 
 
     // uncomment if you use TypeScript
