@@ -25,11 +25,9 @@ class CartController extends AbstractController
     }
 
     #[Route('/cart/{id}', name: 'panier_add')]
-    public function add(Request $request, ComposantRepository $composant) {
-        $composantTrouve = $composant->find($request->get('id'));
-        dump($composantTrouve->getCategorie()->getName());
+    public function add(Request $request, Composant $composant) {
         return $this->render('cart/index.html.twig', [
-            'composant' => $composantTrouve
+            'composant' => $composant->getCategorie()->getPanierBddName()
             ]
         );
     }

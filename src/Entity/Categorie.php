@@ -24,14 +24,13 @@ class Categorie
     #[ORM\OneToMany(mappedBy: 'categorie', targetEntity: Composant::class)]
     private Collection $composants;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $panier_bdd_name = null;
+
     public function __construct()
     {
         $this->composants = new ArrayCollection();
     }
-
-    // public function __toString(): string
-    // {
-    // }
 
     public function getId(): ?int
     {
@@ -50,33 +49,16 @@ class Categorie
         return $this;
     }
 
-    // /**
-    //  * @return Collection<int, Composant>
-    //  */
-    // public function getComposants(): Collection
-    // {
-    //     return $this->composants;
-    // }
-
-    public function addComposant(Composant $composant): self
+    public function getPanierBddName(): ?string
     {
-        if (!$this->composants->contains($composant)) {
-            $this->composants->add($composant);
-            $composant->setCategorie($this);
-        }
+        return $this->panier_bdd_name;
+    }
+
+    public function setPanierBddName(?string $panier_bdd_name): self
+    {
+        $this->panier_bdd_name = $panier_bdd_name;
 
         return $this;
     }
 
-    public function removeComposant(Composant $composant): self
-    {
-        if ($this->composants->removeElement($composant)) {
-            // set the owning side to null (unless already changed)
-            if ($composant->getCategorie() === $this) {
-                $composant->setCategorie(null);
-            }
-        }
-
-        return $this;
-    }
 }
