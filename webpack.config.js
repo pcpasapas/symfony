@@ -38,16 +38,16 @@ Encore
 
     .enableSassLoader()
 
-    // .configureDevServerOptions((options) => {
-    //     options.liveReload = true;
-    //     options.hot = true;
-    //     options.watchFiles = [
-    //         './templates/**/*',
-    //         './src/**/*'
-    //     ]
-    // })
+    .configureDevServerOptions((options) => {
+        options.liveReload = true;
+        options.hot = true;
+        options.watchFiles = [
+            './templates/**/*',
+            './src/**/*'
+        ]
+    })
 
-    // .enableVueLoader()
+    .enableVueLoader()
 
 
     // uncomment if you use TypeScript
