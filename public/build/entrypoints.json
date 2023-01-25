@@ -3,7 +3,7 @@
     "app": {
       "js": [
         "http://localhost:8080/build/runtime.js",
-        "http://localhost:8080/build/vendors-node_modules_bootstrap_dist_js_bootstrap_esm_js-node_modules_bs-custom-file-input_dis-b07c02.js",
+        "http://localhost:8080/build/vendors-node_modules_hotwired_turbo_dist_turbo_es2017-esm_js-node_modules_symfony_stimulus-br-077d89.js",
         "http://localhost:8080/build/app.js"
       ],
       "css": [

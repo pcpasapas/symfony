@@ -47,7 +47,7 @@ Encore
     //     ]
     // })
 
-    .enableVueLoader()
+    // .enableVueLoader()
 
 
     // uncomment if you use TypeScript

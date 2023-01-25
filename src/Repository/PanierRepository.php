@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Composant;
 use App\Entity\Panier;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -37,6 +38,15 @@ class PanierRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function findCart()
+    {
+        return $this->createQueryBuilder('p')
+            ->leftJoin('p.boitier', 'boitier')
+            ->innerJoin(Composant::class, 'c')
+            ->getQuery()
+            ->getResult();
     }
 
 //    /**

@@ -23,13 +23,22 @@ class ComposantController extends AbstractController
     #[Route('/composant', name: 'app_composant')]
     public function index(): Response
     {
-        return $this->render('composant/index.html.twig', [
-            'controller_name' => 'ComposantController',
-        ]);
+        $composants = $this->composantRepo->createQueryBuilder('p')
+        ->andWhere('p.categorie = :categorie')
+        ->setParameter('categorie', 1)
+        ->setMaxResults(10)
+        ->getQuery()
+        ->getResult();
+        return $this->render('composant/index.html.twig');
     }
 
     #[Route('/composants/{id}', name: 'app_composant_by_composant')]
-    public function index_by_composant(Request $request, Categorie $categorie): JsonResponse {
+    /**
+     * retourne le json prend l'id de la categorie et retourne les composants de cette catégorie
+     * @param Categorie $categorie
+     * @return JsonResponse
+     */
+    public function index_by_composant(Categorie $categorie): JsonResponse {
         $composants = $this->composantRepo->createQueryBuilder('p')
             ->andWhere('p.categorie = :categorie')
             ->setParameter('categorie', $categorie)

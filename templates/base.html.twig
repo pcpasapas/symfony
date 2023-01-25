@@ -29,8 +29,11 @@
     <body>
         {% include 'partials/navbar.html.twig' %}
         <div class='mt-5 m-2'>
+
         {% include 'partials/flash-messages.html.twig' %}
-            {% block body %}{% endblock %}
+
+            {% block body %}
+            {% endblock %}
         </div>
         <script src='{{ asset('build/app.js') }}'></script>
     </body>

@@ -11,15 +11,15 @@ import * as bootstrap from 'bootstrap'
 import * as Popper from "@popperjs/core"
 import bsCustomFileInput from 'bs-custom-file-input';
 
-// import { registerVueControllerComponents } from '@symfony/ux-vue';
-// registerVueControllerComponents(require.context('./js', true, /\.vue$/));
+
 // start the Stimulus application
-// import './bootstrap';
+import './bootstrap';
 
-import { createApp } from 'vue';
-import App from './js/App.vue';
+import { registerVueControllerComponents } from '@symfony/ux-vue';
+registerVueControllerComponents(require.context('./vue/controllers', true, /\.vue$/));
 
-
-createApp(App).mount('#app');
+// import { createApp } from 'vue';
+// import App from './js/App.vue';
+// createApp(App).mount('#app');
 
 bsCustomFileInput.init();

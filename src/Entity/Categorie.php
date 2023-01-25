@@ -8,15 +8,13 @@ use App\Repository\CategorieRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 
-
 #[ORM\Entity(repositoryClass: CategorieRepository::class)]
-#[ApiResource]
 class Categorie
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
+    public ?int $id = null;
 
     #[ORM\Column(length: 255)]
     public ?string $name = null;
@@ -29,7 +27,7 @@ class Categorie
 
     public function __construct()
     {
-        $this->composants = new ArrayCollection();
+        // $this->composants = new ArrayCollection();
     }
 
     public function getId(): ?int

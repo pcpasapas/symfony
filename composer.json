@@ -13,6 +13,7 @@
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.14",
         "easycorp/easyadmin-bundle": "^4",
+        "maximebf/debugbar": "^1.18",
         "nelmio/cors-bundle": "^2.2",
         "phpdocumentor/reflection-docblock": "^5.3",
         "phpstan/phpdoc-parser": "^1.15",
@@ -40,6 +41,9 @@
         "symfony/string": "6.2.*",
         "symfony/translation": "6.2.*",
         "symfony/twig-bundle": "6.2.*",
+        "symfony/ux-live-component": "^2.7",
+        "symfony/ux-turbo": "^2.7",
+        "symfony/ux-twig-component": "^2.7",
         "symfony/ux-vue": "^2.7",
         "symfony/validator": "6.2.*",
         "symfony/web-link": "6.2.*",
@@ -97,6 +101,7 @@
         }
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.7",
         "symfony/browser-kit": "6.2.*",
         "symfony/css-selector": "6.2.*",
         "symfony/debug-bundle": "6.2.*",

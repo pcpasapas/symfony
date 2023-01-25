@@ -17,20 +17,20 @@ class Composant
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
+    public ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $marque = null;
+    public ?string $marque = null;
 
     #[ORM\ManyToOne(inversedBy: 'composants', targetEntity: Categorie::class)]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Categorie $categorie = null;
+    public ?Categorie $categorie = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $modele = null;
+    public ?string $modele = null;
 
     #[ORM\Column]
-    private ?int $price = null;
+    public ?int $price = null;
 
     #[ORM\Column(nullable: true)]
     private ?string $format = null;
@@ -47,8 +47,8 @@ class Composant
     #[ORM\Column(nullable: true)]
     private ?int $puissance = null;
 
-    #[ORM\OneToMany(mappedBy: 'boitier', targetEntity: Panier::class)]
-    private Collection $paniers;
+        #[ORM\OneToMany(mappedBy: 'boitier', targetEntity: Panier::class)]
+        private Collection $paniers;
 
     public function __construct()
     {
@@ -59,7 +59,6 @@ class Composant
     {
         return $this->marque;
     }
-
     public function getId(): ?int
     {
         return $this->id;
@@ -173,33 +172,33 @@ class Composant
         return $this;
     }
 
-    /**
-     * @return Collection<int, Panier>
-     */
-    public function getPaniers(): Collection
-    {
-        return $this->paniers;
-    }
+    // /**
+    //  * @return Collection<int, Panier>
+    //  */
+    // public function getPaniers(): Collection
+    // {
+    //     return $this->paniers;
+    // }
 
-    public function addPanier(Panier $panier): self
-    {
-        if (!$this->paniers->contains($panier)) {
-            $this->paniers->add($panier);
-            $panier->setBoitier($this);
-        }
+    // public function addPanier(Panier $panier): self
+    // {
+    //     if (!$this->paniers->contains($panier)) {
+    //         $this->paniers->add($panier);
+    //         $panier->setBoitier($this);
+    //     }
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
-    public function removePanier(Panier $panier): self
-    {
-        if ($this->paniers->removeElement($panier)) {
-            // set the owning side to null (unless already changed)
-            if ($panier->getBoitier() === $this) {
-                $panier->setBoitier(null);
-            }
-        }
+    // public function removePanier(Panier $panier): self
+    // {
+    //     if ($this->paniers->removeElement($panier)) {
+    //         // set the owning side to null (unless already changed)
+    //         if ($panier->getBoitier() === $this) {
+    //             $panier->setBoitier(null);
+    //         }
+    //     }
 
-        return $this;
-    }
+    //     return $this;
+    // }
 }

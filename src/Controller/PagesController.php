@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Panier;
 use App\Entity\Categorie;
 use App\Entity\Composant;
 use App\Form\CategorieFormType;
 use App\Form\ComposantFormType;
+use App\Repository\PanierRepository;
 use App\Repository\CategorieRepository;
 use App\Repository\ComposantRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -13,19 +15,22 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Doctrine\Migrations\Configuration\EntityManager\ManagerRegistryEntityManager;
-
+use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
 
 class PagesController extends AbstractController
 {
-    public function __construct(private EntityManagerInterface $entityManager,
+    public function __construct(
     private CategorieRepository $categorieRepository,
-    private ComposantRepository $composantRepository,     )
+    private ComposantRepository $composantRepository,
+    private PanierRepository $panierRepository
+    )
     {}
 
     #[Route('/', name: 'homepage')]
-    public function index(Request $request): Response
+    public function index(): Response
     {
         return $this->render('pages/index.html.twig', [
             'controller_name' => 'PagesController',
@@ -36,7 +41,8 @@ class PagesController extends AbstractController
     public function category(
 
         Request $request,
-        ManagerRegistry $doctrine
+        ManagerRegistry $doctrine,
+        EntityManagerInterface $entityManager
         ): Response
 
     {
@@ -51,8 +57,8 @@ class PagesController extends AbstractController
                 'success',
                 'La catégorie a été créee ...'
             );
-            $this->entityManager->persist($category);
-            $this->entityManager->flush();
+            $entityManager->persist($category);
+            $entityManager->flush();
 
             return $this->redirectToRoute('category');
         }
@@ -75,8 +81,8 @@ class PagesController extends AbstractController
                 'success',
                 'Le composant a été crée ou modifié...'
             );
-            $this->entityManager->persist($composant);
-            $this->entityManager->flush();
+            $entityManager->persist($composant);
+            $entityManager->flush();
             return $this->redirectToRoute('category');
         }
 
@@ -89,25 +95,33 @@ class PagesController extends AbstractController
     }
 
     #[Route('/astuces', name: 'astuces')]
-    public function astuces(Request $request): Response
+    public function astuces(): Response
     {
         return $this->render('pages/astuces.html.twig');
     }
 
     #[Route('/tests', name: 'tests')]
-    public function tests(Request $request): Response
+    public function tests(): Response
     {
         return $this->render('pages/tests.html.twig');
     }
 
     #[Route('/configurateur', name: 'configurateur')]
-    public function configurateur(
-        Request $request ): Response {
+    public function configurateur()
+    {
+        $panier = $this->panierRepository->Find(1);
+
+        // $panierSerial = $serializer->normalize($this->panierRepository->findAll(), 'array', [AbstractNormalizer::ATTRIBUTES => ['boitier', 'Alimentation'], [AbstractObjectNormalizer::SKIP_NULL_VALUES => true]]);
         return $this->render('pages/configurateur.html.twig',
          [
-            'categories' => $this->categorieRepository->findAll()
+            'categories' => $this->categorieRepository->findAll(),
+            'panier' => [
+                'boitier' => $panier->getBoitier(),
+                'alimentation' =>$panier->getAlimentation()
+            ],
+            'composants' => $this->composantRepository->findByCategorie(1),
          ]
-    );
+        );
     }
 
 

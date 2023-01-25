@@ -5,6 +5,13 @@
 {% block body %}
 <div>
     <p>Panier</p>
-    {{ composant }}
+
+    {% for composant in panier %}
+        <li class="d-flex align-items-center">
+            {{ composant.marque }}
+            {{ composant.modele }}
+            {{ (composant.price / 100)|number_format(2, ',', ' ') }} €
+        </li>
+    {% endfor %}
 </div>
 {% endblock %}

@@ -4,9 +4,10 @@
 {% block title %}Configurateur{% endblock %}
 
 {% block body %}
+
+{{ include('./cart/index.html.twig', {panier: panier}) }}
     <h1 class='text-center'>Configurateur</h1>
-    <div id="app">
-    </div>
+    <div {{ vue_component('configurateurComponent', { 'categories' : categories, 'composants': composants } )}}><div>
 </div>
 {% endblock %}
 
