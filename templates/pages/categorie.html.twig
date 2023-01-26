@@ -8,14 +8,16 @@
     <table>
     {% for item in categories %}
         <tbody>
+            <tr>
             <td><h4>{{ item.name }}</h4></td>
             <td>
             {% if is_granted('ROLE_ADMIN') %}
-            <form name="delete" id="delete" action="{{ path('app_categorie_delete', {categorie:item.id}) }}" method="POST">
-                <input type="submit" value="Supprimer" class='form-control bg-warning text-danger p-0 ms-4' />
+            <form name="delete" id="delete-{{ item.id }}" action="{{ path('app_categorie_delete', {categorie:item.id}) }}" method="POST">
+                <input type="submit" value="Supprimer" class='form-control bg-warning text-danger p-0 ms-4'>
             </form>
             {% endif %}
-            <td>
+            </td>
+            </tr>
         </tbody>
     {% endfor %}
     </table>
@@ -32,6 +34,7 @@
     <h1 class="text-center">Les composants</h1>
     <table class='table mx-3 text-center'>
         <thead class="table-secondary">
+            <tr>
             <th>Catégorie</th>
             <th>Image</th>
             <th>Marque</th>
@@ -40,26 +43,29 @@
             <th>Dimensions</th>
             <th>Couleur</th>
             <th></th>
+            </tr>
         </thead>
     {% for item in composants %}
         <tbody>
-            <th>{{ item.categorie.name }}</th>
-            <td><img style="width:10%; height:10%;" class="col-lg-1" src="{{ asset("images/") ~ item.categorie.name ~ item.id ~ '.jpg'}}"</td>
-            <td>{{ item.marque }}</td>
-            <td class="col-lg-1">{{ item.modele }}</td>
-            <td class="flex-nowrap col-lg-1">{{ ((item.price)/100)|number_format(2, ',', ' ') }} € </td>
-            <td>{{ item.dimensions }}</td>
-            <td>{{ item.couleur }}</td>
-            <td>
-            {% if is_granted('ROLE_ADMIN') %}
-            <form name="edit" id="edit" action="{{ path('category', {composant:item.id}) }}" method="POST">
-                <input type="submit" value="Editer" class='form-control bg-warning text-danger p-0' />
-            </form>
-            <form name="delete" id="delete" action="{{ path('app_composant_delete', {composant:item.id}) }}" method="POST">
-                <input type="submit" value="Supprimer" class='form-control bg-warning text-danger p-0' />
-            </form>
-            {% endif %}
-            <td>
+            <tr>
+                <th>{{ item.categorie.name }}</th>
+                <td><img style="width:10% ; height:10%;" class="col-lg-1" src="{{ asset("images/") ~ item.categorie.name ~ item.id ~ '.jpg'}}" alt="image de composant"></td>
+                <td>{{ item.marque }}</td>
+                <td class="col-lg-1">{{ item.modele }}</td>
+                <td class="flex-nowrap col-lg-1">{{ ((item.price)/100)|number_format(2, ',', ' ') }} € </td>
+                <td>{{ item.dimensions }}</td>
+                <td>{{ item.couleur }}</td>
+                <td>
+                {% if is_granted('ROLE_ADMIN') %}
+                <form name="edit" id="edit" action="{{ path('category', {composant:item.id}) }}" method="POST">
+                    <input type="submit" value="Editer" class='form-control bg-warning text-danger p-0'>
+                </form>
+                <form name="delete" id="delete" action="{{ path('app_composant_delete', {composant:item.id}) }}" method="POST">
+                    <input type="submit" value="Supprimer" class='form-control bg-warning text-danger p-0'>
+                </form>
+                {% endif %}
+                </td>
+            </tr>
         </tbody>
     {% endfor %}
     </table>

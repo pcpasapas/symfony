@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="fr">
     <head>
+    {% block head %}
         <meta charset="UTF-8">
         <title>{% block title %}Pc pas à pas - Bienvenue{% endblock %}</title>
         <meta name="viewport" content="width=device-width,initial-scale=1">
-        <link rel="icon" href="favicon.ico">
+        <link rel="icon" type="image/ico" href="{{ asset('favicon.png') }}">
         <meta name="description" content="Site pas à pas">
                 <!-- Google tag (gtag.js) -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-153ZZY7C5M"></script>
@@ -22,13 +23,15 @@
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
+    {% endblock %}
     </head>
-    <body>
+    <div>
         {% include 'partials/navbar.html.twig' %}
         <div class='mt-5 m-2'>
         {% include 'partials/flash-messages.html.twig' %}
             {% block body %}
             {% endblock %}
         </div>
+    </div>
     </body>
 </html>

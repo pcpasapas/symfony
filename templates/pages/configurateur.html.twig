@@ -1,10 +1,7 @@
 {% extends 'base.html.twig' %}
-
-
 {% block title %}Pc Pas à pas - Configurateur{% endblock %}
 
 {% block body %}
-
 {{ include('./cart/index.html.twig', {panier: panier}) }}
     <h1 class='text-center'>Configurateur</h1>
     <div {{ vue_component('configurateurComponent', { 'categories' : categories, 'composants': composants } )}}><div>

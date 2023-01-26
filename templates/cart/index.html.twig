@@ -1,17 +1,23 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Pc pas à pas votre panier{% endblock %}
-
 {% block body %}
 <div>
-    <p>Panier</p>
-
-    {% for composant in panier %}
-        <li class="d-flex align-items-center">
-            {{ composant.marque }}
-            {{ composant.modele }}
-            {{ (composant.price / 100)|number_format(2, ',', ' ') }} €
-        </li>
-    {% endfor %}
+    <table class="table table-hover table-sm caption-top table-responsive">
+        <caption>Votre configuration</caption>
+        <thead>
+            <tr class="table-primary">
+                <th scope="col">Marque</th>
+                <th>Modèle</th>
+                <th>Prix</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for composant in panier %}
+            <tr>
+                <td>{{ composant.marque }}</td>
+                <td>{{ composant.modele }}</td>
+                <td>{{ (composant.price / 100)|number_format(2, ',', ' ') }} €</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 </div>
 {% endblock %}
