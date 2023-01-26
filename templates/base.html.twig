@@ -6,7 +6,8 @@
         <meta name="viewport" content="width=device-width,initial-scale=1">
         <link rel="icon" href="favicon.ico">
         <meta name="description" content="Site pas à pas">
-        <meta name="robots" content="all"/>
+        <meta name="robots" content="index"/>
+        <meta name="googlebot" content="index"/>
                 <!-- Google tag (gtag.js) -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-153ZZY7C5M"></script>
         <script>
@@ -20,7 +21,6 @@
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
-        {# <script src="//unpkg.com/alpinejs" defer></script> #}
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
@@ -32,6 +32,5 @@
             {% block body %}
             {% endblock %}
         </div>
-        {# <script src='{{ asset('build/app.js') }}'></script> #}
     </body>
 </html>
