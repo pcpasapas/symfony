@@ -11,6 +11,7 @@
         "@symfony/webpack-encore": "^4.0.0",
         "bootstrap": "^5.2.3",
         "bs-custom-file-input": "^1.3.4",
+        "compression-webpack-plugin": "^10.0.0",
         "core-js": "^3.23.0",
         "node-sass": "^8.0.0",
         "regenerator-runtime": "^0.13.9",
@@ -28,7 +29,7 @@
         "dev": "encore dev",
         "watch": "encore dev --watch",
         "build": "encore production --progress",
-        "git" : "encore production --progress && git add . && git commit -m 'git_push_auto' && git push",
+        "git": "encore production --progress && git add . && git commit -m 'git_push_auto' && git push",
         "postinstall": "npm run build"
     },
     "dependencies": {

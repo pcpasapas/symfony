@@ -1,4 +1,5 @@
 const Encore = require('@symfony/webpack-encore');
+const CompressionPlugin = require("compression-webpack-plugin");
 var path = require('path');
 
 if (!Encore.isRuntimeEnvironmentConfigured()) {
@@ -62,6 +63,7 @@ Encore
 
     // uncomment if you're having problems with a jQuery plugin
     //.autoProvidejQuery()
+    .addPlugin(new CompressionPlugin())
 ;
 
 module.exports = Encore.getWebpackConfig();
