@@ -1,6 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
     <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Pc pas à pas - Bienvenue{% endblock %}</title>
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <link rel="icon" href="favicon.ico">
+        <meta name="description" content="Site pas à pas">
+        <meta name="robots" content="all"/>
                 <!-- Google tag (gtag.js) -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-153ZZY7C5M"></script>
         <script>
@@ -10,8 +16,7 @@
         gtag('config', 'G-153ZZY7C5M');
         </script>
                 <!-- Fin de Google tag (gtag.js) -->
-        <meta charset="UTF-8">
-        <title>{% block title %}Pc pas à pas - Bienvenue{% endblock %}</title>
+
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
