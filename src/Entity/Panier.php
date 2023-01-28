@@ -40,7 +40,6 @@ class Panier
     }
     public function getAlimentation(): ?Composant
     {
-        dump($this->alimentation);
         return $this->alimentation;
     }
 
