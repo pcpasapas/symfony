@@ -1,24 +1,25 @@
 <template>
   <div>
-    <p class="mb-0">Sélectionnez votre catégorie pour voir les composants :</p>
-    <select @change="onChange" name="catégories" id="categories">
-      <option
-        name="categories"
-        id="categories"
-        v-for="categorie in categories"
-        :value="categorie.id"
-      >
-        {{ categorie.name }}
-      </option>
-    </select>
-    <div class="d-flex" v-if="!loadingcomp">
-      <div v-for="composant in composantsLoad">
-        <cardComposant
-          :composant="composant"
-          :key="composant.id"
-        ></cardComposant>
+      <p class="mb-0">Sélectionnez votre catégorie pour voir les composants :</p>
+      <select @change="onChange" name="catégories" id="categories">
+        <option
+          name="categories"
+          id="categories"
+          v-for="categorie in categories"
+          :value="categorie.id"
+          :key="categorie.id"
+        >
+          {{ categorie.name }}
+        </option>
+      </select>
+      <div class="d-flex" v-if="!loadingcomp">
+        <div v-for="composant in composantsLoad" :key="composant.id">
+          <cardComposant
+            :composant="composant"
+            :key="composant.id"
+          ></cardComposant>
+        </div>
       </div>
-    </div>
   </div>
 </template>
 

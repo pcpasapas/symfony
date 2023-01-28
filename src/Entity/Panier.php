@@ -5,11 +5,8 @@ namespace App\Entity;
 use App\Entity\Composant;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\PanierRepository;
-use ApiPlatform\Metadata\ApiResource;
-use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: PanierRepository::class)]
-#[ApiResource]
 class Panier
 {
     #[ORM\Id]
@@ -20,17 +17,16 @@ class Panier
     #[ORM\ManyToOne(inversedBy: 'paniers')]
     private ?Admin $user = null;
 
-    #[ORM\ManyToOne(inversedBy: 'paniers', targetEntity:Composant::class)]
-    private ?Composant $boitier = null;
+    #[ORM\ManyToOne(fetch:'EAGER')]
+    public ?Composant $alimentation = null;
 
-    #[ORM\ManyToOne]
-    private ?Composant $Alimentation = null;
-    #[Groups(['panier'])]
+    #[ORM\ManyToOne(targetEntity:Composant::class, fetch:'EAGER')]
+    public ?Composant $boitier = null;
+
     public function getId(): ?int
     {
         return $this->id;
     }
-    #[Groups(['panier'])]
     public function getUser(): ?Admin
     {
         return $this->user;
@@ -42,8 +38,18 @@ class Panier
 
         return $this;
     }
+    public function getAlimentation(): ?Composant
+    {
+        return $this->alimentation;
+    }
 
-    #[Groups(['panier'])]
+    public function setAlimentation(?Composant $alimentation): self
+    {
+        $this->alimentation = $alimentation;
+
+        return $this;
+    }
+
     public function getBoitier(): ?Composant
     {
         return $this->boitier;
@@ -56,18 +62,6 @@ class Panier
         return $this;
     }
 
-    public function getAlimentation(): ?Composant
-    {
-        return $this->Alimentation;
-    }
-
-    public function setAlimentation(?Composant $Alimentation): self
-    {
-        $this->Alimentation = $Alimentation;
-
-        return $this;
-    }
-
     public function setComposant(?Composant $composant): self
     {
         $categorie = $composant->getCategorie()->getName();
@@ -75,7 +69,7 @@ class Panier
             $this->boitier = $composant;
         }
         if ($categorie === 'Alimentations') {
-            $this->Alimentation = $composant;
+            $this->alimentation = $composant;
         }
         return $this;
     }

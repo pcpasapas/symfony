@@ -4,23 +4,20 @@ namespace App\Entity;
 
 use App\Entity\Categorie;
 use Doctrine\ORM\Mapping as ORM;
-use ApiPlatform\Metadata\ApiResource;
 use App\Repository\ComposantRepository;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ComposantRepository::class)]
-// #[ApiResource]
 class Composant
 {
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     public ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    public ?string $marque = null;
+    public ?string $marque = "";
 
     #[ORM\ManyToOne(inversedBy: 'composants', targetEntity: Categorie::class)]
     #[ORM\JoinColumn(nullable: false)]
@@ -47,18 +44,12 @@ class Composant
     #[ORM\Column(nullable: true)]
     private ?int $puissance = null;
 
-        #[ORM\OneToMany(mappedBy: 'boitier', targetEntity: Panier::class)]
-        private Collection $paniers;
-
-    public function __construct()
-    {
-        $this->paniers = new ArrayCollection();
-    }
-
     public function __toString(): string
     {
         return $this->marque;
     }
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -172,33 +163,4 @@ class Composant
         return $this;
     }
 
-    // /**
-    //  * @return Collection<int, Panier>
-    //  */
-    // public function getPaniers(): Collection
-    // {
-    //     return $this->paniers;
-    // }
-
-    // public function addPanier(Panier $panier): self
-    // {
-    //     if (!$this->paniers->contains($panier)) {
-    //         $this->paniers->add($panier);
-    //         $panier->setBoitier($this);
-    //     }
-
-    //     return $this;
-    // }
-
-    // public function removePanier(Panier $panier): self
-    // {
-    //     if ($this->paniers->removeElement($panier)) {
-    //         // set the owning side to null (unless already changed)
-    //         if ($panier->getBoitier() === $this) {
-    //             $panier->setBoitier(null);
-    //         }
-    //     }
-
-    //     return $this;
-    // }
 }

@@ -48,7 +48,6 @@ class ComposantRepository extends ServiceEntityRepository
             ->leftJoin(Categorie::class, 'categorie', 'WITH', 'categorie.id = c.categorie')
             ->getQuery()
             ->getOneOrNullResult();
-
     }
 
    /**
