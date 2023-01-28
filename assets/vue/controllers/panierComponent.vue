@@ -1,42 +1,62 @@
 <template>
-    <div>
-    <table class="table table-hover table-sm caption-top table-responsive">
-        <caption>Votre configuration</caption>
-        <thead>
-            <tr class="table-primary">
-                <th scope="col">Marque</th>
-                <th>Modèle</th>
-                <th>Prix</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-                <tr class="" v-for="composant, index in panier"  :key="index">
-                    <div v-if="composant !== null">
-                    <td>{{ composant.marque }}</td>
-                    <td>{{ composant.modele }}</td>
-                    <td>{{ (composant.price / 100).toFixed(2) }} €</td>
-                    <td><a :href="'/cart/remove/' + composant.categorie['panier_bdd_name']" class="btn btn-danger p-1">Supprimer</a></td>
-                </div>
-                </tr>
-        </tbody>
+  <div>
+    <table class="table table-hover table-sm caption-top table-responsive" v-if="prixTotalPanier !== 0">
+      <caption>
+        Votre configuration
+      </caption>
+      <thead>
+        <tr class="table-primary">
+          <th scope="col">Marque</th>
+          <th>Modèle</th>
+          <th>Prix</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <template v-for="(composant, index) in panierLoad" :key="index">
+          <tr class="" v-if="composant.length !== 0">
+            <td>{{ composant.marque }}</td>
+            <td>{{ composant.modele }}</td>
+            <td>{{ (composant.price / 100).toFixed(2) }} €</td>
+            <td>
+              <a
+                :href="'/cart/remove/' + composant.categorie['panier_bdd_name']"
+                class="btn btn-danger p-1"
+                >Supprimer</a
+              >
+            </td>
+          </tr>
+        </template>
+      </tbody>
+      Prix total du panier : {{ (prixTotalPanier/ 100).toFixed(2) }} €
     </table>
-    </div>
+  </div>
 </template>
 
 <script>
 export default {
-    props : ['panier'],
-    data() {
-        return {
-            panierLoad : {},
-            loadingpanier : true,
-        }
-    },
-    mounted() {
-    this.panierLoad = this.panier
-    this.loadingpanier = false
+  props: ["panier"],
+  data() {
+    return {
+      panierLoad: [],
+      loadingpanier: true,
+      prixTotal: 0,
+    };
   },
-
-}
+  mounted() {
+    this.panierLoad = this.panier;
+    this.loadingpanier = false;
+  },
+  computed: {
+    prixTotalPanier() {
+      this.prixTotal = 0
+      for (let composant in this.panierLoad) {
+        if (this.panierLoad[composant].price !== undefined) {
+          this.prixTotal = this.prixTotal + this.panierLoad[composant].price;
+        }
+      }
+      return this.prixTotal;
+    },
+  },
+};
 </script>

@@ -19,8 +19,8 @@ class Categorie
     #[ORM\Column(length: 255)]
     public ?string $name = null;
 
-    // #[ORM\OneToMany(mappedBy: 'categorie', targetEntity: Composant::class)]
-    // private Collection $composants;
+    #[ORM\OneToMany(mappedBy: 'categorie', targetEntity: Composant::class)]
+    private Collection $composants;
 
     #[ORM\Column(length: 255, nullable: true)]
     public ?string $panier_bdd_name = null;

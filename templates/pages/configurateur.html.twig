@@ -4,7 +4,7 @@
 {% block body %}
     <div {{ vue_component('panierComponent', {'panier': panier} )}}></div>
     <h1 class='text-center'>Configurateur</h1>
-    <div {{ vue_component('configurateurComponent', { 'categories' : categories, 'composants': composants } )}}><div>
+    <div {{ vue_component('configurateurComponent', { 'categories' : categories, 'composants': composants, 'panier' : panier } )}}><div>
 </div>
 {% endblock %}
 

@@ -43,8 +43,7 @@ class PanierRepository extends ServiceEntityRepository
     public function findCart()
     {
         return $this->createQueryBuilder('p')
-            ->leftJoin('p.boitier', 'boitier')
-            ->innerJoin(Composant::class, 'c')
+            ->andWhere('p.boitier IS NOT NULL')
             ->getQuery()
             ->getResult();
     }

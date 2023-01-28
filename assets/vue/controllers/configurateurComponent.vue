@@ -1,64 +1,89 @@
 <template>
-  <div>
-      <p class="mb-0">Sélectionnez votre catégorie pour voir les composants :</p>
-      <select @change="onChange" name="catégories" id="categories">
-        <option
-          name="categories"
-          id="categories"
-          v-for="categorie in categories"
-          :value="categorie.id"
-          :key="categorie.id"
-        >
-          {{ categorie.name }}
-        </option>
-      </select>
-      <div class="d-flex" v-if="!loadingcomp">
-        <div v-for="composant in composantsLoad" :key="composant.id">
-          <cardComposant
-            :composant="composant"
-            :key="composant.id"
-          ></cardComposant>
-        </div>
+  <div v-if="!loadingCat">
+    <p class="mb-0">Sélectionnez votre catégorie pour voir les composants :</p>
+    <div class="mx-5 my-2">
+    <select
+      class="form-select form-select-lg"
+      @change="onChange"
+      v-model="categorieSelect"
+      name="catégories"
+      id="categoriesSelect"
+    >
+      <option
+        name="categories"
+        id="categories"
+        v-for="categorie in categoriesFilterFn"
+        :value="categorie.id"
+        :key="categorie.id"
+      >
+        {{ categorie.name }}
+      </option>
+    </select>
+  </div>
+    <div class="d-flex" v-if="!loadingComp">
+      <div v-for="composant in composantsLoad" :key="composant.id">
+        <cardComposant
+          :composant="composant"
+          :key="composant.id"
+        ></cardComposant>
       </div>
+    </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
 import cardComposant from "./cardComposant.vue";
-import supprimerComponent from "./supprimerComponent.vue";
 
 export default {
-  props: ["categories", "composants"],
+  props: ["categories", "composants", "panier"],
   data() {
     return {
-      loadingcat: true,
-      loadingcomp: true,
+      loadingCat: true,
+      loadingComp: true,
       categorie: 1,
-      username: "",
       composantsLoad: [],
+      categoriesFilter: this.categories,
+      categorieSelect: "",
     };
   },
 
   mounted() {
-    this.composantsLoad = this.composants
-    this.loadingcomp = false
+    this.composantsLoad = this.composants;
+    this.categorieSelect = this.categoriesFilterFn[0].id;
+    this.onChange();
+  },
+
+  computed: {
+    categoriesFilterFn() {
+      for (let composant in this.panier) {
+        for (let categorie in this.categoriesFilter)
+          if (this.panier[composant].categorie !== undefined) {
+            if (
+              this.categories[categorie].name ===
+              this.panier[composant].categorie.name
+            ) {
+              this.categoriesFilter.splice(categorie, 1);
+            }
+          }
+      }
+      return this.categoriesFilter;
+    },
   },
 
   methods: {
-    onChange(e) {
-      this.loadingcomp = true;
-      this.categorie = e.target.value;
+    onChange() {
       axios
-        .get("/composants/" + this.categorie)
+        .get("/composants/" + this.categorieSelect)
         .then((response) => {
           this.composantsLoad = response.data;
         })
         .then(() => {
-          this.loadingcomp = false;
+          this.loadingComp = false;
+          this.loadingCat = false;
         });
     },
   },
-  components: { cardComposant, supprimerComponent },
+  components: { cardComposant },
 };
 </script>
