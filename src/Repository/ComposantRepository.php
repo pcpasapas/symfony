@@ -6,6 +6,7 @@ use App\Entity\Categorie;
 use App\Entity\Composant;
 use App\Repository\PanierRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Bundle\SecurityBundle\Security;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
@@ -18,7 +19,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
  */
 class ComposantRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry, private PanierRepository $panierRepo)
+    public function __construct(ManagerRegistry $registry, private PanierRepository $panierRepo, private Security $security)
     {
         parent::__construct($registry, Composant::class);
     }
@@ -48,10 +49,17 @@ class ComposantRepository extends ServiceEntityRepository
         ->andWhere('p.categorie = :categorie')
         ->setParameter('categorie', $categorie);
 
+        // trouve le panier de l'utlisateur
+        $currentUser = $this->security->getUser();
+        if ($currentUser == null) {
+            $panier = $this->panierRepo->Find(1);
+        } else {
+            $panier = $this->panierRepo->findOneBy(['user' => $this->security->getUser()]);
+        }
             // si on veut voir les boitiers
             if ($categorie->getId() == "1") {
                 // si la carte mere est deja dans le panier
-                $carteMereChoisie = $this->panierRepo->find(1)->getCarteMere();
+                $carteMereChoisie = $panier->getCarteMere();
                 if ($carteMereChoisie) {
                 $composants = $composants
                     ->andWhere('p.format LIKE :format')
@@ -62,7 +70,7 @@ class ComposantRepository extends ServiceEntityRepository
             // si on veut voir les processeurs
             if ($categorie->getId() == "3") {
                 // si la carte mere est deja dans le panier
-                $carteMereChoisie = $this->panierRepo->find(1)->getCarteMere();
+                $carteMereChoisie = $panier->getCarteMere();
                 if ($carteMereChoisie) {
                 $composants = $composants
                     ->andWhere('p.socket = :socket')
@@ -73,14 +81,14 @@ class ComposantRepository extends ServiceEntityRepository
             // si on veut voir les cartes mères
             if ($categorie->getId() == "4") {
                 // si le boitier est deja dans le panier
-                $boitierChoisi = $this->panierRepo->find(1)->getBoitier();
+                $boitierChoisi = $panier->getBoitier();
                 if ($boitierChoisi) {
                 $composants = $composants
-                    ->andWhere('p.format = :format')
-                    ->setParameter('format', $boitierChoisi->getFormat());
+                    ->andWhere("p.format LIKE :format")
+                    ->setParameter('format', '%' . $boitierChoisi->getFormat() . '%');
                 }
                 // si le processeur est deja dans le panier
-                $processeurChoisi = $this->panierRepo->find(1)->getProcesseur();
+                $processeurChoisi = $panier->getProcesseur();
                 if ($processeurChoisi) {
                 $composants = $composants
                     ->andWhere('p.socket = :socket')

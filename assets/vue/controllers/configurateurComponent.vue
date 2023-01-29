@@ -1,9 +1,9 @@
 <template>
   <div v-if="!loadingCat">
-    <p class="mb-0">Sélectionnez votre catégorie pour voir les composants :</p>
+    <p class="mb-0">Sélectionnez votre catégorie :</p>
     <div class="mx-5 my-2">
       <select
-        class="form-select form-select-lg"
+        class="form-select form-select-lg shadow-lg"
         @change="onChange"
         v-model="categorieSelect"
         name="catégories"

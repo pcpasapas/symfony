@@ -109,7 +109,7 @@ class Composant
         return $this;
     }
 
-    public function getFormat(): string
+    public function getFormat(): ?string
     {
         return $this->format;
     }

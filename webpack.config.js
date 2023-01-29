@@ -36,7 +36,7 @@ Encore.setOutputPath("public/build/")
 
   .enableSassLoader()
 
-  .configureDevServerOptions(options => {
+  .configureDevServerOptions((options) => {
     options.liveReload = true;
     options.hot = true;
     options.watchFiles = ["./templates/**/*", "./src/**/*"];

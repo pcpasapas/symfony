@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Admin;
 use App\Entity\Categorie;
 use App\Entity\Composant;
+use App\Entity\Panier;
 use App\Form\CategorieFormType;
 use App\Form\ComposantFormType;
 use App\Repository\PanierRepository;
@@ -11,6 +13,7 @@ use App\Repository\CategorieRepository;
 use App\Repository\ComposantRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -104,9 +107,22 @@ class PagesController extends AbstractController
     }
 
     #[Route('/configurateur', name: 'configurateur')]
-    public function configurateur(ComposantRepository $composant)
+    public function configurateur(PanierRepository $panierRepo, ComposantRepository $composant, Security $security)
     {
-        $panier = $this->panierRepository->Find(1);
+        // Recuperation du panier de l'utilisateur ou alors création d'un panier
+        $currentUser = $security->getUser();
+        if ($currentUser == null) {
+            $panier = $this->panierRepository->Find(1);
+        } else {
+            $panier = $this->panierRepository->findOneBy(['user' => $security->getUser()]);
+            if (!$panier) {
+                $panier = new Panier();
+                $panier->setUser($security->getUser());
+                $panierRepo->save($panier, true);
+                $panier = $this->panierRepository->findOneBy(['user' => $currentUser]);
+            }
+        }
+
         return $this->render('pages/configurateur.html.twig',
          [
             'categories' => $this->categorieRepository->findAll(),

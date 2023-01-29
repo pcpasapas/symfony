@@ -11,12 +11,12 @@
       <h5 class="card-title">{{ (composant.price / 100).toFixed(2) }} €</h5>
       <p class="card-text"></p>
       <p class="card-text" v-if="composant.format !== null">
-        Format : {{ composant.format }}
+        Format : {{ formatMaxFn(composant.format) }}
       </p>
       <p class="card-text" v-if="composant.socket !== null">
         Socket : {{ composant.socket }}
       </p>
-      <a :href="'/cart/' + composant.id" class="btn btn-primary"
+      <a :href="'/cart/' + composant.id" class="btn btn-primary shadow-lg"
         >Ajouter à votre configuration</a
       >
     </div>
@@ -31,6 +31,10 @@ export default {
   methods: {
     getImgUrl(pic) {
       return require("../../../public/images/" + pic + ".jpg");
+    },
+    formatMaxFn(format) {
+      format = format.split(" ");
+      return format[format.length - 1];
     },
   },
 };
