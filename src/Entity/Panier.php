@@ -23,6 +23,12 @@ class Panier
     #[ORM\ManyToOne(targetEntity:Composant::class, fetch:'EAGER')]
     public ?Composant $boitier = null;
 
+    #[ORM\ManyToOne(targetEntity:Composant::class, fetch:"EAGER")]
+    private ?Composant $processeur = null;
+
+    #[ORM\ManyToOne(targetEntity:Composant::class, fetch:"EAGER")]
+    private ?Composant $Carte_mere = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -71,6 +77,36 @@ class Panier
         if ($categorie === 'Alimentations') {
             $this->alimentation = $composant;
         }
+        if ($categorie === 'Processeurs') {
+            $this->processeur = $composant;
+        }
+        if ($categorie === 'Cartes Mères') {
+            $this->Carte_mere = $composant;
+        }
+        return $this;
+    }
+
+    public function getProcesseur(): ?Composant
+    {
+        return $this->processeur;
+    }
+
+    public function setProcesseur(?Composant $processeur): self
+    {
+        $this->processeur = $processeur;
+
+        return $this;
+    }
+
+    public function getCarteMere(): ?Composant
+    {
+        return $this->Carte_mere;
+    }
+
+    public function setCarte_mere(?Composant $Carte_mere): self
+    {
+        $this->Carte_mere = $Carte_mere;
+
         return $this;
     }
 

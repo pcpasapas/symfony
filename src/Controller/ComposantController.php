@@ -7,6 +7,7 @@ use App\Entity\Composant;
 use App\Form\ComposantFormType;
 use App\Repository\CategorieRepository;
 use App\Repository\ComposantRepository;
+use App\Repository\PanierRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -39,12 +40,7 @@ class ComposantController extends AbstractController
      * @return JsonResponse
      */
     public function index_by_composant(Categorie $categorie): JsonResponse {
-        $composants = $this->composantRepo->createQueryBuilder('p')
-            ->andWhere('p.categorie = :categorie')
-            ->setParameter('categorie', $categorie)
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult();
+        $composants = $this->composantRepo->getResultsFilter($categorie)->getQuery()->getResult();;
         return $this->Json($composants);
     }
 

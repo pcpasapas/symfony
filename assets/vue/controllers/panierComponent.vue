@@ -1,11 +1,15 @@
 <template>
   <div>
-    <table class="table table-hover table-sm caption-top table-responsive" v-if="prixTotalPanier !== 0">
+    <table
+      class="table table-hover table-sm caption-top table-responsive"
+      v-if="prixTotalPanier !== 0"
+    >
       <caption>
         Votre configuration
       </caption>
       <thead>
         <tr class="table-primary">
+          <th scope="col">Composant</th>
           <th scope="col">Marque</th>
           <th>Modèle</th>
           <th>Prix</th>
@@ -15,6 +19,7 @@
       <tbody>
         <template v-for="(composant, index) in panierLoad" :key="index">
           <tr class="" v-if="composant.length !== 0">
+            <th>{{ composant.categorie.name }}</th>
             <td>{{ composant.marque }}</td>
             <td>{{ composant.modele }}</td>
             <td>{{ (composant.price / 100).toFixed(2) }} €</td>
@@ -28,8 +33,12 @@
           </tr>
         </template>
       </tbody>
-      Prix total du panier : {{ (prixTotalPanier/ 100).toFixed(2) }} €
     </table>
+    <p class="text-end fs-5">
+      Prix total de votre configuration :
+      {{ (prixTotalPanier / 100).toFixed(2) }}
+      €
+    </p>
   </div>
 </template>
 
@@ -49,7 +58,7 @@ export default {
   },
   computed: {
     prixTotalPanier() {
-      this.prixTotal = 0
+      this.prixTotal = 0;
       for (let composant in this.panierLoad) {
         if (this.panierLoad[composant].price !== undefined) {
           this.prixTotal = this.prixTotal + this.panierLoad[composant].price;

@@ -30,6 +30,13 @@ class Categorie
         // $this->composants = new ArrayCollection();
     }
 
+    public function __toString():String
+    {
+        return $this->name;
+    }
+
+
+
     public function getId(): ?int
     {
         return $this->id;

@@ -25,7 +25,9 @@ class ComposantCrudController extends AbstractCrudController
             'format',
             'dimensions',
             'couleur',
-            'puissance'
+            'puissance',
+            'socket',
+            'lien'
 
         ];
     }

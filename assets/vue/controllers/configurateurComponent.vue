@@ -2,30 +2,27 @@
   <div v-if="!loadingCat">
     <p class="mb-0">Sélectionnez votre catégorie pour voir les composants :</p>
     <div class="mx-5 my-2">
-    <select
-      class="form-select form-select-lg"
-      @change="onChange"
-      v-model="categorieSelect"
-      name="catégories"
-      id="categoriesSelect"
-    >
-      <option
-        name="categories"
-        id="categories"
-        v-for="categorie in categoriesFilterFn"
-        :value="categorie.id"
-        :key="categorie.id"
+      <select
+        class="form-select form-select-lg"
+        @change="onChange"
+        v-model="categorieSelect"
+        name="catégories"
+        id="categoriesSelect"
       >
-        {{ categorie.name }}
-      </option>
-    </select>
-  </div>
+        <option
+          name="categories"
+          id="categories"
+          v-for="categorie in categoriesFilterFn"
+          :value="categorie.id"
+          :key="categorie.id"
+        >
+          {{ categorie.name }}
+        </option>
+      </select>
+    </div>
     <div class="d-flex" v-if="!loadingComp">
       <div v-for="composant in composantsLoad" :key="composant.id">
-        <cardComposant
-          :composant="composant"
-          :key="composant.id"
-        ></cardComposant>
+        <cardComposant :composant="composant" :key="composant.id"></cardComposant>
       </div>
     </div>
   </div>
@@ -36,7 +33,7 @@ import axios from "axios";
 import cardComposant from "./cardComposant.vue";
 
 export default {
-  props: ["categories", "composants", "panier"],
+  props: ["categories", "panier"],
   data() {
     return {
       loadingCat: true,
@@ -49,7 +46,6 @@ export default {
   },
 
   mounted() {
-    this.composantsLoad = this.composants;
     this.categorieSelect = this.categoriesFilterFn[0].id;
     this.onChange();
   },
@@ -60,8 +56,7 @@ export default {
         for (let categorie in this.categoriesFilter)
           if (this.panier[composant].categorie !== undefined) {
             if (
-              this.categories[categorie].name ===
-              this.panier[composant].categorie.name
+              this.categories[categorie].name === this.panier[composant].categorie.name
             ) {
               this.categoriesFilter.splice(categorie, 1);
             }

@@ -44,6 +44,12 @@ class Composant
     #[ORM\Column(nullable: true)]
     private ?int $puissance = null;
 
+    #[ORM\Column(length: 500, nullable: true)]
+    private ?string $lien = null;
+
+    #[ORM\Column(length: 20, nullable: true)]
+    private ?string $socket = null;
+
     public function __toString(): string
     {
         return $this->marque;
@@ -159,6 +165,30 @@ class Composant
     public function setPuissance(?int $puissance): self
     {
         $this->puissance = $puissance;
+
+        return $this;
+    }
+
+    public function getLien(): ?string
+    {
+        return $this->lien;
+    }
+
+    public function setLien(?string $lien): self
+    {
+        $this->lien = $lien;
+
+        return $this;
+    }
+
+    public function getSocket(): ?string
+    {
+        return $this->socket;
+    }
+
+    public function setSocket(?string $socket): self
+    {
+        $this->socket = $socket;
 
         return $this;
     }

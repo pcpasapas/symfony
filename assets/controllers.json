@@ -3,17 +3,17 @@
         "@symfony/ux-turbo": {
             "turbo-core": {
                 "enabled": true,
-                "fetch": "eager"
+                "fetch": "lazy"
             },
             "mercure-turbo-stream": {
                 "enabled": false,
-                "fetch": "eager"
+                "fetch": "lazy"
             }
         },
         "@symfony/ux-vue": {
             "vue": {
                 "enabled": true,
-                "fetch": "eager"
+                "fetch": "lazy"
             }
         }
     },

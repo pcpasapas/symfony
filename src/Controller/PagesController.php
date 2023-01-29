@@ -110,12 +110,12 @@ class PagesController extends AbstractController
         return $this->render('pages/configurateur.html.twig',
          [
             'categories' => $this->categorieRepository->findAll(),
-            'panierTest' => $this->panierRepository->findCart(),
             'panier' => [
                 'boitier' => (array) $panier->getBoitier(),
                 'alimentation' => (array) $panier->getAlimentation(),
+                'processeur' => (array) $panier->getProcesseur(),
+                'carte_mere' => (array) $panier->getCarteMere(),
             ],
-            'composants' => $this->composantRepository->findByCategorie(1),
          ]
         );
     }

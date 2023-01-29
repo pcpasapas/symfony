@@ -1,8 +1,8 @@
 const Encore = require("@symfony/webpack-encore");
 const CompressionPlugin = require("compression-webpack-plugin");
 var path = require("path");
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 var webpack = require('webpack')
+const fs = require('fs');
 
 if (!Encore.isRuntimeEnvironmentConfigured()) {
   Encore.configureRuntimeEnvironment(process.env.NODE_ENV || "dev");
@@ -36,7 +36,7 @@ Encore.setOutputPath("public/build/")
 
   .enableSassLoader()
 
-  .configureDevServerOptions((options) => {
+  .configureDevServerOptions(options => {
     options.liveReload = true;
     options.hot = true;
     options.watchFiles = ["./templates/**/*", "./src/**/*"];
@@ -55,4 +55,14 @@ Encore.setOutputPath("public/build/")
      })
    )
 
-module.exports = Encore.getWebpackConfig();
+const fullConfig = Encore.getWebpackConfig();
+
+// fullConfig.devServer = {
+//   compress : true,
+//   https: {
+//     cert: fs.readFileSync(path.join(process.env.HOME, '.symfony5/certs/default.p12')),
+//     passphrase: 'webpack-dev-server',
+//     requestCert: true,
+//   },
+// }
+module.exports = fullConfig

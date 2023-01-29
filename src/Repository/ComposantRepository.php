@@ -4,8 +4,9 @@ namespace App\Repository;
 
 use App\Entity\Categorie;
 use App\Entity\Composant;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Repository\PanierRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Composant>
@@ -17,7 +18,7 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ComposantRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry, private PanierRepository $panierRepo)
     {
         parent::__construct($registry, Composant::class);
     }
@@ -40,38 +41,57 @@ class ComposantRepository extends ServiceEntityRepository
         }
     }
 
-    public function findOneWithCategorie(int $id): ?Composant
+    public function getResultsFilter($categorie)
     {
-        return $this->createQueryBuilder('c')
-            ->where('c.id = :val')
-            ->setParameter('val', $id)
-            ->leftJoin(Categorie::class, 'categorie', 'WITH', 'categorie.id = c.categorie')
-            ->getQuery()
-            ->getOneOrNullResult();
+        // retrouve les composants en fonction de la categorie choisie
+        $composants = $this->createQueryBuilder('p')
+        ->andWhere('p.categorie = :categorie')
+        ->setParameter('categorie', $categorie);
+
+            // si on veut voir les boitiers
+            if ($categorie->getId() == "1") {
+                // si la carte mere est deja dans le panier
+                $carteMereChoisie = $this->panierRepo->find(1)->getCarteMere();
+                if ($carteMereChoisie) {
+                $composants = $composants
+                    ->andWhere('p.format LIKE :format')
+                    ->setParameter('format', '%'.$carteMereChoisie->getFormat().'%');
+                }
+            }
+
+            // si on veut voir les processeurs
+            if ($categorie->getId() == "3") {
+                // si la carte mere est deja dans le panier
+                $carteMereChoisie = $this->panierRepo->find(1)->getCarteMere();
+                if ($carteMereChoisie) {
+                $composants = $composants
+                    ->andWhere('p.socket = :socket')
+                    ->setParameter('socket', $carteMereChoisie->getSocket());
+
+                }
+            }
+            // si on veut voir les cartes mères
+            if ($categorie->getId() == "4") {
+                // si le boitier est deja dans le panier
+                $boitierChoisi = $this->panierRepo->find(1)->getBoitier();
+                if ($boitierChoisi) {
+                $composants = $composants
+                    ->andWhere('p.format = :format')
+                    ->setParameter('format', $boitierChoisi->getFormat());
+                }
+                // si le processeur est deja dans le panier
+                $processeurChoisi = $this->panierRepo->find(1)->getProcesseur();
+                if ($processeurChoisi) {
+                $composants = $composants
+                    ->andWhere('p.socket = :socket')
+                    ->setParameter('socket', $processeurChoisi->getSocket());
+                }
+            }
+
+        return $composants->orderBy('p.price', 'asc');
     }
-
-   /**
-    * @return Composant[] Returns an array of Composant objects
-    */
-   public function findByCategorie($value): array
-   {
-       return $this->createQueryBuilder('c')
-           ->andWhere('c.categorie = :val')
-           ->setParameter('val', $value)
-           ->orderBy('c.id', 'ASC')
-           ->setMaxResults(10)
-           ->getQuery()
-           ->getResult()
-       ;
-   }
-
-//    public function findOneBySomeField($value): ?Composant
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->where('c.id = $value')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
 }
+
+
+
+
