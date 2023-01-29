@@ -34,7 +34,6 @@ security:
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/astuces, roles: ROLE_ADMIN }
         - { path: ^/categorie, roles: ROLE_ADMIN }
-        - { path: '^/', requires_channel: https }
         # - { path: ^/profile, roles: ROLE_USER }
 
 when@test:
