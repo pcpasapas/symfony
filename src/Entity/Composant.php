@@ -30,7 +30,7 @@ class Composant
     public ?int $price = null;
 
     #[ORM\Column(nullable: true)]
-    private ?string $format = null;
+    public ?string $format = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $dimensions = null;
@@ -49,6 +49,9 @@ class Composant
 
     #[ORM\Column(length: 20, nullable: true)]
     private ?string $socket = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    public ?string $cg_processeur = null;
 
     public function __toString(): string
     {
@@ -189,6 +192,18 @@ class Composant
     public function setSocket(?string $socket): self
     {
         $this->socket = $socket;
+
+        return $this;
+    }
+
+    public function getCgProcesseur(): ?string
+    {
+        return $this->cg_processeur;
+    }
+
+    public function setCgProcesseur(?string $cg_processeur): self
+    {
+        $this->cg_processeur = $cg_processeur;
 
         return $this;
     }

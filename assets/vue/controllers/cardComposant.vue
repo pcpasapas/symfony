@@ -13,8 +13,11 @@
       <p class="card-text" v-if="composant.format !== null">
         Format : {{ formatMaxFn(composant.format) }}
       </p>
-      <p class="card-text" v-if="composant.socket !== null">
+      <p class="card-text m-0" v-if="composant.socket !== null">
         Socket : {{ composant.socket }}
+      </p>
+      <p class="card-text" v-if="composant.cgProcesseur !== null">
+        Graphiques intégrés : {{ composant.cgProcesseur }}
       </p>
       <a :href="'/cart/' + composant.id" class="btn btn-primary shadow-lg"
         >Ajouter à votre configuration</a

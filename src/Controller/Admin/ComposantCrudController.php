@@ -21,10 +21,12 @@ class ComposantCrudController extends AbstractCrudController
             AssociationField::new('categorie'),
             TextField::new('marque'),
             TextField::new('modele'),
+            'id',
             'price',
             'format',
             'dimensions',
             'couleur',
+            'cg_processeur',
             'puissance',
             'socket',
             'lien'

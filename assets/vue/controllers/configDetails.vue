@@ -16,8 +16,14 @@
     Ajoutez de la mémoire Ram à votre configuration
   </h6>
   <h6 v-if="panier.carte_graphique.marque == undefined">
-    Ajoutez une carte graphique à votre configuration si votre processeur n'en contient
-    pas
+    Ajoutez une carte graphique à votre configuration<span
+      v-if="
+        panier.processeur.cg_processeur !== null &&
+        panier.processeur.cg_processeur !== undefined
+      "
+    >
+      (Optionnel car votre processeur contient une partie graphique de base)</span
+    >
   </h6>
   <h6 v-if="panier.hdd.marque == undefined && panier.ssd.marque == undefined">
     Ajoutez un disque dur à votre configuration
@@ -113,49 +119,49 @@ img {
 }
 .boitierImg {
   position: relative;
-  width: 50%;
+  width: 35%;
   top: 50%;
   left: 50%;
   transform: translate(-50%);
 }
 .alimImg {
-  width: 15%;
+  width: 10%;
   position: absolute;
   top: 0%;
   left: 5%;
 }
 .processeurImg {
-  width: 15%;
+  width: 10%;
   position: absolute;
   top: 40%;
   right: 5%;
 }
 .carte_mereImg {
-  width: 15%;
+  width: 10%;
   position: absolute;
   top: 5%;
   right: 5%;
 }
 .ramImg {
-  width: 15%;
+  width: 10%;
   position: absolute;
   top: 70%;
   right: 5%;
 }
 .carte_graphiqueImg {
-  width: 15%;
+  width: 10%;
   position: absolute;
   top: 30%;
   left: 5%;
 }
 .hddImg {
-  width: 15%;
+  width: 10%;
   position: absolute;
   top: 90%;
   left: 5%;
 }
 .ssdImg {
-  width: 15%;
+  width: 10%;
   position: absolute;
   top: 60%;
   left: 5%;
