@@ -70,9 +70,11 @@ export default {
     onChange() {
       axios
         .get("/composants/" + this.categorieSelect)
+        .catch((err) => console.log(err, this.composantsLoad))
         .then((response) => {
           this.composantsLoad = response.data;
         })
+        .catch((err) => console.log(err, this.composantsLoad))
         .then(() => {
           this.loadingComp = false;
           this.loadingCat = false;

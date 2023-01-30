@@ -1,5 +1,5 @@
 <template>
-  <h1>Votre configuration en détails</h1>
+  <h1 class="text-center">Votre configuration en détails</h1>
   <h6 v-if="panier.boitier.marque == undefined">
     Commencez par ajouter un boitier à votre configuration
   </h6>

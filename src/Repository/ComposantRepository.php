@@ -83,6 +83,7 @@ class ComposantRepository extends ServiceEntityRepository
                 // si le boitier est deja dans le panier
                 $boitierChoisi = $panier->getBoitier();
                 if ($boitierChoisi) {
+                $this->addFlash('success', 'Le choix de votre carte mère est restreint par le format de votre boitier');
                 $composants = $composants
                     ->andWhere("p.format LIKE :format")
                     ->setParameter('format', '%' . $boitierChoisi->getFormat() . '%');
