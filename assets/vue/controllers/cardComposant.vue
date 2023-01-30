@@ -1,7 +1,7 @@
 <template>
   <div class="card m-2 py-2" style="width: 18rem">
     <img
-      :src="getImgUrl(composant.categorie.name + composant.id)"
+      :src="getImgUrl(composant.categorie.name, composant.id)"
       class="card-img-top"
       alt="image du composant"
     />
@@ -29,8 +29,9 @@ export default {
     composant: {},
   },
   methods: {
-    getImgUrl(pic) {
-      return require("../../../public/images/" + pic + ".jpg");
+    getImgUrl(cat, id) {
+      // eslint-disable-next-line no-undef
+      return require("../../../public/images/" + cat + "/" + id + ".jpg");
     },
     formatMaxFn(format) {
       format = format.split(" ");

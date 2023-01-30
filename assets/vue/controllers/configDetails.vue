@@ -13,7 +13,7 @@
   <div v-if="panier.boitier.marque != undefined">
     {{ panier.boitier.marque }}
     <img
-      :src="getImgUrl(panier.boitier.categorie.name + panier.boitier.id)"
+      :src="getImgUrl(panier.boitier.categorie.name, panier.boitier.id)"
       class="card-img-top"
       alt="image du composant"
     />
@@ -33,8 +33,9 @@
 export default {
   props: ["panier"],
   methods: {
-    getImgUrl(pic) {
-      return require("../../../public/images/" + pic + ".jpg");
+    getImgUrl(cat, id) {
+      // eslint-disable-next-line no-undef
+      return require("../../../public/images/" + cat + "/" + id + ".jpg");
     },
   },
 };
