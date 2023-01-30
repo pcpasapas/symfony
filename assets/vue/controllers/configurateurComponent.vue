@@ -20,8 +20,8 @@
         </option>
       </select>
     </div>
-    <div class="d-flex" v-if="!loadingComp">
-      <div v-for="composant in composantsLoad" :key="composant.id">
+    <div class="d-flex flex-wrap mx-auto" v-if="!loadingComp">
+      <div v-for="composant in composantsLoad" :key="composant.id" class="mx-auto">
         <cardComposant :composant="composant" :key="composant.id"></cardComposant>
       </div>
     </div>

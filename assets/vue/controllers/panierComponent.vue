@@ -1,9 +1,6 @@
 <template>
-  <div>
-    <table
-      class="table table-hover table-sm caption-top table-responsive"
-      v-if="prixTotalPanier !== 0"
-    >
+  <div v-if="prixTotalPanier !== 0">
+    <table class="table table-hover table-sm caption-top table-responsive">
       <caption>
         Votre configuration
       </caption>
