@@ -27,7 +27,7 @@ class Categorie
 
     public function __construct()
     {
-        // $this->composants = new ArrayCollection();
+        $this->composants = new ArrayCollection();
     }
 
     public function __toString():String

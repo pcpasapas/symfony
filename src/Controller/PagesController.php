@@ -131,6 +131,10 @@ class PagesController extends AbstractController
                 'alimentation' => (array) $panier->getAlimentation(),
                 'processeur' => (array) $panier->getProcesseur(),
                 'carte_mere' => (array) $panier->getCarteMere(),
+                'carte_graphique' => (array) $panier->getCarteGraphique(),
+                'ram' => (array) $panier->getRam(),
+                'ssd' => (array) $panier->getSsd(),
+                'hdd' => (array) $panier->getHdd(),
             ],
          ]
         );

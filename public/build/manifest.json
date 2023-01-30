@@ -1,6 +1,6 @@
 {
   "build/app.css": "/build/app.21b10810.css",
-  "build/app.js": "/build/app.133ddff0.js",
+  "build/app.js": "/build/app.3cc0d6f4.js",
   "build/runtime.js": "/build/runtime.ba544546.js",
   "build/131.6aa52d6e.js": "/build/131.6aa52d6e.js",
   "build/796.f2f00745.js": "/build/796.f2f00745.js",
@@ -13,8 +13,12 @@
   "build/images/Boitiers2.jpg": "/build/images/Boitiers2.23f13125.jpg",
   "build/images/Cartes Mères10.jpg": "/build/images/Cartes Mères10.d5f5faa6.jpg",
   "build/images/Cartes Mères14.jpg": "/build/images/Cartes Mères14.742a4aef.jpg",
+  "build/images/Cartes Graphiques15.jpg": "/build/images/Cartes Graphiques15.399b2b33.jpg",
   "build/images/Processeurs8.jpg": "/build/images/Processeurs8.b74ba1a5.jpg",
+  "build/images/Mémoire Ram18.jpg": "/build/images/Mémoire Ram18.d80d8231.jpg",
   "build/images/Processeurs9.jpg": "/build/images/Processeurs9.7f2ff5f2.jpg",
+  "build/images/Disque Dur HDD17.jpg": "/build/images/Disque Dur HDD17.e748a1cd.jpg",
+  "build/images/Disque Dur SSD16.jpg": "/build/images/Disque Dur SSD16.be64f368.jpg",
   "build/images/Alimentations7.jpg": "/build/images/Alimentations7.1ccc433a.jpg",
   "build/images/Cartes Mères11.jpg": "/build/images/Cartes Mères11.85ffbf77.jpg"
 }

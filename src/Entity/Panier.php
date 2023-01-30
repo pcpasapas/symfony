@@ -29,6 +29,18 @@ class Panier
     #[ORM\ManyToOne(targetEntity:Composant::class, fetch:"EAGER")]
     private ?Composant $Carte_mere = null;
 
+    #[ORM\ManyToOne(targetEntity:Composant::class, fetch:"EAGER")]
+    private ?Composant $carte_graphique = null;
+
+    #[ORM\ManyToOne(targetEntity:Composant::class, fetch:"EAGER")]
+    private ?Composant $ssd = null;
+
+    #[ORM\ManyToOne(targetEntity:Composant::class, fetch:"EAGER")]
+    private ?Composant $hdd= null;
+
+    #[ORM\ManyToOne(targetEntity:Composant::class, fetch:"EAGER")]
+    private ?Composant $ram = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -83,6 +95,19 @@ class Panier
         if ($categorie === 'Cartes Mères') {
             $this->Carte_mere = $composant;
         }
+        if ($categorie === 'Cartes Graphiques') {
+            $this->carte_graphique = $composant;
+        }
+        if ($categorie === 'Disque Dur SSD') {
+
+            $this->ssd = $composant;
+        }
+        if ($categorie === 'Disque Dur HDD') {
+            $this->hdd = $composant;
+        }
+        if ($categorie === 'Mémoire Ram') {
+            $this->ram = $composant;
+        }
         return $this;
     }
 
@@ -106,6 +131,54 @@ class Panier
     public function setCarte_mere(?Composant $Carte_mere): self
     {
         $this->Carte_mere = $Carte_mere;
+
+        return $this;
+    }
+
+    public function getCarteGraphique(): ?Composant
+    {
+        return $this->carte_graphique;
+    }
+
+    public function setcarte_graphique(?Composant $carte_graphique): self
+    {
+        $this->carte_graphique = $carte_graphique;
+
+        return $this;
+    }
+
+    public function getssd(): ?Composant
+    {
+        return $this->ssd;
+    }
+
+    public function setssd(?Composant $ssd): self
+    {
+        $this->ssd = $ssd;
+
+        return $this;
+    }
+
+    public function getHdd(): ?Composant
+    {
+        return $this->hdd;
+    }
+
+    public function setHdd(?Composant $hdd): self
+    {
+        $this->hdd = $hdd;
+
+        return $this;
+    }
+
+    public function getRam(): ?Composant
+    {
+        return $this->ram;
+    }
+
+    public function setRam(?Composant $ram): self
+    {
+        $this->ram = $ram;
 
         return $this;
     }

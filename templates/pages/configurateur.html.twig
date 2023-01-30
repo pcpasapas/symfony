@@ -3,8 +3,7 @@
 
 {% block body %}
     <div {{ vue_component('panierComponent', {'panier': panier} )}}></div>
-    <h1 class='text-center'>Configurateur</h1>
-
+    <h1 class='text-center'>Ajoutez des composants à votre configuration</h1>
     <div {{ vue_component('configurateurComponent', { 'categories' : categories, 'panier' : panier } )}}></div>
     <div {{ vue_component('configDetails', {'panier': panier} )}}></div>
 </div>

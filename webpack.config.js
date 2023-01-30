@@ -1,8 +1,7 @@
+/* eslint-disable no-undef */
 const Encore = require("@symfony/webpack-encore");
 const CompressionPlugin = require("compression-webpack-plugin");
-var path = require("path");
 var webpack = require('webpack')
-const fs = require('fs');
 
 if (!Encore.isRuntimeEnvironmentConfigured()) {
   Encore.configureRuntimeEnvironment(process.env.NODE_ENV || "dev");
