@@ -20,6 +20,8 @@
         </option>
       </select>
     </div>
+    <p v-if="message != ''">{{ message }}</p>
+    <p v-if="message2 != ''">{{ message2 }}</p>
     <div class="d-flex flex-wrap mx-auto" v-if="!loadingComp">
       <div v-for="composant in composantsLoad" :key="composant.id" class="mx-auto">
         <cardComposant :composant="composant" :key="composant.id"></cardComposant>
@@ -42,6 +44,8 @@ export default {
       composantsLoad: [],
       categoriesFilter: this.categories,
       categorieSelect: "",
+      message: "",
+      message2: "",
     };
   },
 
@@ -58,6 +62,7 @@ export default {
             if (
               this.categories[categorie].name === this.panier[composant].categorie.name
             ) {
+              // eslint-disable-next-line vue/no-side-effects-in-computed-properties
               this.categoriesFilter.splice(categorie, 1);
             }
           }
@@ -72,7 +77,10 @@ export default {
         .get("/composants/" + this.categorieSelect)
         .catch((err) => console.log(err, this.composantsLoad))
         .then((response) => {
-          this.composantsLoad = response.data;
+          console.log(response.data);
+          this.composantsLoad = response.data[0];
+          this.message = response.data[1];
+          this.message2 = response.data[2];
         })
         .catch((err) => console.log(err, this.composantsLoad))
         .then(() => {

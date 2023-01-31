@@ -37,7 +37,7 @@ class CartController extends AbstractController
         }
         $panier->setComposant($composant);
         $panierRepo->save($panier, true);
-        $this->addFlash('success', "L'article a bien été ajouté à votre configuration");
+        flash()->translate(['fr'])->addSuccess("L'article a bien été ajouté à votre configuration");
         return $this->redirectToRoute('configurateur');
     }
 
@@ -52,7 +52,7 @@ class CartController extends AbstractController
         $set = "set" . $request->get('categorie');
         $panier->$set(null);
         $panierRepo->save($panier, true);
-        $this->addFlash('danger', "L'article a bien été retiré de votre configuration");
+        flash()->translate(['fr'])->addInfo("L'article a bien été retiré de votre configuration");
         return $this->redirectToRoute('configurateur');
     }
 }

@@ -40,8 +40,10 @@ class ComposantController extends AbstractController
      * @return JsonResponse
      */
     public function index_by_composant(Categorie $categorie): JsonResponse {
-        $composants = $this->composantRepo->getResultsFilter($categorie)->getQuery()->getResult();;
-        return $this->Json($composants);
+        $composants = $this->composantRepo->getResultsFilter($categorie)[0]->getQuery()->getResult();
+        $message = $this->composantRepo->getResultsFilter($categorie)[1];
+        $message2 = $this->composantRepo->getResultsFilter($categorie)[2];
+        return $this->Json ([$composants, $message, $message2]);
     }
 
     #[Route('/composantEdit', methods: ['POST'], name:'app_composant_edit')]

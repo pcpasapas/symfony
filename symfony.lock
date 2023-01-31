@@ -56,6 +56,9 @@
             "./config/packages/nelmio_cors.yaml"
         ]
     },
+    "php-flasher/flasher-symfony": {
+        "version": "v1.13.1"
+    },
     "symfony/apache-pack": {
         "version": "1.0",
         "recipe": {

@@ -16,4 +16,5 @@ return [
     Symfony\UX\Vue\VueBundle::class => ['all' => true],
     Symfony\UX\Turbo\TurboBundle::class => ['all' => true],
     Symfony\Bundle\DebugBundle\DebugBundle::class => ['dev' => true],
+    Flasher\Symfony\FlasherSymfonyBundle::class => ['all' => true],
 ];

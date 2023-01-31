@@ -44,6 +44,8 @@ class ComposantRepository extends ServiceEntityRepository
 
     public function getResultsFilter($categorie)
     {
+        $message = "";
+        $message2 = "";
         // retrouve les composants en fonction de la categorie choisie
         $composants = $this->createQueryBuilder('p')
         ->andWhere('p.categorie = :categorie')
@@ -61,6 +63,7 @@ class ComposantRepository extends ServiceEntityRepository
                 // si la carte mere est deja dans le panier
                 $carteMereChoisie = $panier->getCarteMere();
                 if ($carteMereChoisie) {
+                $message = "Les boitiers affichés sont filtrés pour afficher seulement ceux qui sont compatibles avec votre carte mère. Format : " . $carteMereChoisie->getFormat() ;
                 $composants = $composants
                     ->andWhere('p.format LIKE :format')
                     ->setParameter('format', '%'.$carteMereChoisie->getFormat().'%');
@@ -72,6 +75,7 @@ class ComposantRepository extends ServiceEntityRepository
                 // si la carte mere est deja dans le panier
                 $carteMereChoisie = $panier->getCarteMere();
                 if ($carteMereChoisie) {
+                $message = "Les processeurs affichés sont filtrés pour afficher seulement ceux qui sont compatibles avec votre carte mère. Socket : " . $carteMereChoisie->getSocket();
                 $composants = $composants
                     ->andWhere('p.socket = :socket')
                     ->setParameter('socket', $carteMereChoisie->getSocket());
@@ -82,22 +86,38 @@ class ComposantRepository extends ServiceEntityRepository
             if ($categorie->getId() == "4") {
                 // si le boitier est deja dans le panier
                 $boitierChoisi = $panier->getBoitier();
-                if ($boitierChoisi) {
-                $this->addFlash('success', 'Le choix de votre carte mère est restreint par le format de votre boitier');
-                $composants = $composants
-                    ->andWhere("p.format LIKE :format")
-                    ->setParameter('format', '%' . $boitierChoisi->getFormat() . '%');
+            if ($boitierChoisi) {
+                if ($boitierChoisi->getFormat() == "Micro-ATX") {
+                    $composants = $composants
+                        ->andWhere("p.format = 'Micro-ATX'");
                 }
+                if ($boitierChoisi->getFormat() == "Micro-ATX, ATX") {
+                    $composants = $composants
+                        ->andWhere("p.format = 'Micro-ATX'")
+                        ->orWhere("p.format = 'ATX'");
+                }
+                if ($boitierChoisi->getFormat() == "Micro-ATX, ATX, E-ATX") {
+                    $composants = $composants
+                        ->andWhere("p.format = 'Micro-ATX'")
+                        ->orWhere("p.format = 'ATX'")
+                        ->orWhere("p.format = 'E-ATX'");
+                }
+                $message = "Les cartes mères affichées sont filtrées pour afficher seulement celles qui sont
+                compatibles le boitier choisi dans votre configuration.
+                Format : " . $boitierChoisi->getFormat() . '. Pour revenir à la selection complète des cartes mères, supprimez votre boitier dans votre configuration';
+            }
+
                 // si le processeur est deja dans le panier
                 $processeurChoisi = $panier->getProcesseur();
                 if ($processeurChoisi) {
+                $message2 = "Les cartes mères affichées sont filtrées pour afficher seulement celles qui sont compatibles avec votre processeur. Socket : " . $processeurChoisi->getSocket() ;
                 $composants = $composants
                     ->andWhere('p.socket = :socket')
                     ->setParameter('socket', $processeurChoisi->getSocket());
                 }
             }
 
-        return $composants->orderBy('p.price', 'asc');
+        return [$composants->orderBy('p.price', 'asc'), $message, $message2];
     }
 }
 

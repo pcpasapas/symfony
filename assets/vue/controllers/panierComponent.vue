@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/no-side-effects-in-computed-properties -->
 <template>
   <div v-if="prixTotalPanier !== 0">
     <table class="table table-hover table-sm caption-top table-responsive">
@@ -39,6 +40,7 @@
   </div>
 </template>
 
+<!-- eslint-disable vue/no-side-effects-in-computed-properties -->
 <script>
 export default {
   props: ["panier"],
