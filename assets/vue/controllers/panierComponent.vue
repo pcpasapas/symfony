@@ -1,12 +1,11 @@
 <!-- eslint-disable vue/no-side-effects-in-computed-properties -->
 <template>
+  <hr />
   <div v-if="prixTotalPanier !== 0">
+    <h1 class="text-center text-success">Votre configuration</h1>
     <table class="table table-hover table-sm caption-top table-responsive">
-      <caption>
-        Votre configuration
-      </caption>
       <thead>
-        <tr class="table-primary">
+        <tr class="table-success">
           <th scope="col">Composant</th>
           <th scope="col">Marque</th>
           <th>Modèle</th>
@@ -20,7 +19,7 @@
             <th>{{ composant.categorie.name }}</th>
             <td>{{ composant.marque }}</td>
             <td>{{ composant.modele }}</td>
-            <td>{{ (composant.price / 100).toFixed(2) }} €</td>
+            <td>{{ (composant.price / 100).toFixed(2).replace(".", ",") }} €</td>
             <td>
               <a
                 :href="'/cart/remove/' + composant.categorie['panier_bdd_name']"
@@ -34,7 +33,7 @@
     </table>
     <p class="text-end fs-5">
       Prix total de votre configuration :
-      {{ (prixTotalPanier / 100).toFixed(2) }}
+      {{ (prixTotalPanier / 100).toFixed(2).replace(".", ",") }}
       €
     </p>
   </div>

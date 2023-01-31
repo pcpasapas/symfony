@@ -20,13 +20,15 @@
         </option>
       </select>
     </div>
-    <p v-if="message != ''">{{ message }}</p>
-    <p v-if="message2 != ''">{{ message2 }}</p>
-    <div class="d-flex flex-wrap mx-auto" v-if="!loadingComp">
-      <div v-for="composant in composantsLoad" :key="composant.id" class="mx-auto">
-        <cardComposant :composant="composant" :key="composant.id"></cardComposant>
+    <h6 v-if="message != ''">{{ message }}</h6>
+    <h6 v-if="message2 != ''">{{ message2 }}</h6>
+    <Transition appear name="slide-fade">
+      <div class="d-flex flex-wrap mx-auto" v-if="!loadingComp">
+        <div v-for="composant in composantsLoad" :key="composant.id" class="mx-auto">
+          <cardComposant :composant="composant" :key="composant.id"></cardComposant>
+        </div>
       </div>
-    </div>
+    </Transition>
   </div>
 </template>
 
@@ -92,3 +94,18 @@ export default {
   components: { cardComposant },
 };
 </script>
+
+<style>
+.slide-fade-enter-active {
+  transition: all 1s ease-out;
+}
+.slide-fade-leave-active {
+  transition: all 1s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+  transform: translateY(-20px);
+  opacity: 0;
+}
+</style>

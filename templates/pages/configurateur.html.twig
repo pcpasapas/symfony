@@ -2,8 +2,10 @@
 {% block title %}Pc Pas à pas - Configurateur{% endblock %}
 
 {% block body %}
-    <div {{ vue_component('panierComponent', {'panier': panier} )}}></div>
-    <h1 class='text-center'>Ajoutez des composants à votre configuration</h1>
+    <div id="haut" {{ vue_component('panierComponent', {'panier': panier} )}}></div>
+    <a href="{{ path('configurateur') }}#configdetails" class="text-success">-> Voir votre config en détails</a>
+    <hr class="color-success"/>
+    <h1 class='text-center text-success'>Ajoutez des composants à votre configuration</h1>
     {% for message in app.flashes('info') %}
         <div class="alert alert-info fixed alert-dismissible fade show">
             {{ message }}
@@ -11,7 +13,9 @@
         </div>
     {% endfor %}
     <div {{ vue_component('configurateurComponent', { 'categories' : categories, 'panier' : panier } )}}></div>
-    <div {{ vue_component('configDetails', {'panier': panier} )}}></div>
+    <a href="{{ path('configurateur') }}#haut" class="text-success">-> Revenir à votre panier</a>
+    <hr class="color-success"/>
+    <div id="configdetails" {{ vue_component('configDetails', {'panier': panier} )}}></div>
 </div>
 {% endblock %}
 

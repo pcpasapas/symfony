@@ -8,7 +8,9 @@
     <div class="card-body">
       <h5 class="card-title">{{ composant.marque }}</h5>
       <h6 class="card-text">{{ composant.modele }}</h6>
-      <h5 class="card-title">{{ (composant.price / 100).toFixed(2) }} €</h5>
+      <h5 class="card-title">
+        {{ (composant.price / 100).toFixed(2).replace(".", ",") }} €
+      </h5>
       <p class="card-text"></p>
       <p class="card-text" v-if="composant.format !== null">
         Format : {{ formatMaxFn(composant.format) }}
