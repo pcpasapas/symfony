@@ -2,6 +2,7 @@
 const Encore = require("@symfony/webpack-encore");
 const CompressionPlugin = require("compression-webpack-plugin");
 var webpack = require('webpack')
+const TerserPlugin = require("terser-webpack-plugin");
 
 if (!Encore.isRuntimeEnvironmentConfigured()) {
   Encore.configureRuntimeEnvironment(process.env.NODE_ENV || "dev");
@@ -16,7 +17,7 @@ Encore.setOutputPath("public/build/")
   .enableStimulusBridge("./assets/controllers.json")
 
   // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
-  .splitEntryChunks()
+  // .splitEntryChunks()
 
   // will require an extra script tag for runtime.js
   // but, you probably want this, unless you're building a single-page app
@@ -64,4 +65,12 @@ const fullConfig = Encore.getWebpackConfig();
 //     requestCert: true,
 //   },
 // }
+
+fullConfig.optimization = {
+  minimize: true,
+  minimizer: [new TerserPlugin()],
+},
+
+
+
 module.exports = fullConfig
