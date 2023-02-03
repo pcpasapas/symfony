@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b919aa739f290fd38b65aa0b4a5f5610",
+    "content-hash": "1a3aa159cea421b8c6d9c6d48886db8b",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -9327,16 +9327,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "10.0.0",
+            "version": "10.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "c4c60c34c0e92045afce938510f8878d7cd84f8a"
+                "reference": "e2aa0bba46b3d913be20921e88e5a6f9d5cfc9b5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/c4c60c34c0e92045afce938510f8878d7cd84f8a",
-                "reference": "c4c60c34c0e92045afce938510f8878d7cd84f8a",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/e2aa0bba46b3d913be20921e88e5a6f9d5cfc9b5",
+                "reference": "e2aa0bba46b3d913be20921e88e5a6f9d5cfc9b5",
                 "shasum": ""
             },
             "require": {
@@ -9407,7 +9407,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/10.0.0"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/10.0.1"
             },
             "funding": [
                 {
@@ -9423,7 +9423,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-02-03T07:16:15+00:00"
+            "time": "2023-02-03T13:36:13+00:00"
         },
         {
             "name": "sebastian/cli-parser",
@@ -10692,13 +10692,13 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "8.1.*",
+        "php": "8.1",
         "ext-ctype": "*",
         "ext-iconv": "*"
     },
     "platform-dev": [],
     "platform-overrides": {
-        "php": "8.1.2"
+        "php": "8.1"
     },
     "plugin-api-version": "2.3.0"
 }
