@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Jeux{% endblock %}
+
+{% block body %}
+    {% for jeu in jeux %}
+
+        <h1>{{jeu.name}}</h1>
+        <div {{ vue_component('configDetailsMini',
+        { 'panier' :
+            {
+                'boitier' : jeu.panier.boitier,
+                'alimentation' : jeu.panier.alimentation,
+                'processeur' : jeu.panier.processeur,
+                'carte_mere' : jeu.panier.carteMere,
+                'ram' : jeu.panier.ram,
+                'carte_graphique' : jeu.panier.carteGraphique,
+                'ssd' : jeu.panier.ssd,
+                'hdd' : jeu.panier.hdd,
+            }
+        }
+    )}}></div>
+        <div {{ vue_component('panierComponent',
+            { 'panier' :
+                {
+                    'boitier' : jeu.panier.boitier,
+                    'alimentation' : jeu.panier.alimentation,
+                    'processeur' : jeu.panier.processeur,
+                    'carte_mere' : jeu.panier.carteMere,
+                    'ram' : jeu.panier.ram,
+                    'carte_graphique' : jeu.panier.carteGraphique,
+                    'ssd' : jeu.panier.ssd,
+                    'hdd' : jeu.panier.hdd,
+                }
+            }
+        )}}></div>
+        <div   {{ vue_component('configDetails',
+        { 'panier' :
+            {
+                'boitier' : jeu.panier.boitier,
+                'alimentation' : jeu.panier.alimentation,
+                'processeur' : jeu.panier.processeur,
+                'carte_mere' : jeu.panier.carteMere,
+                'ram' : jeu.panier.ram,
+                'carte_graphique' : jeu.panier.carteGraphique,
+                'ssd' : jeu.panier.ssd,
+                'hdd' : jeu.panier.hdd,
+            }
+        }
+    )}}></div>
+    {% endfor %}
+
+{% endblock %}

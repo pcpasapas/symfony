@@ -3,11 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Admin;
+use App\Entity\Panier;
 use App\Entity\Categorie;
 use App\Entity\Composant;
-use App\Entity\Panier;
 use App\Form\CategorieFormType;
 use App\Form\ComposantFormType;
+use App\Repository\JeuRepository;
 use App\Repository\PanierRepository;
 use App\Repository\CategorieRepository;
 use App\Repository\ComposantRepository;
@@ -17,6 +18,7 @@ use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\Json;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
@@ -30,9 +32,20 @@ class PagesController extends AbstractController
     {}
 
     #[Route('/', name: 'homepage')]
-    public function index(): Response
+    public function index(PanierRepository $panierRepo): Response
     {
+        $panier = $panierRepo->find(5);
         return $this->render('pages/index.html.twig', [
+            'panier' => $panier
+        ]);
+    }
+
+    #[Route('/jeux', name:'jeux')]
+    public function jeux(JeuRepository $repository): Response
+    {
+        $jeux = $repository->findJeux();
+        return $this->render('pages/jeux.html.twig', [
+            'jeux' => (array) $jeux
         ]);
     }
 

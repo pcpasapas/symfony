@@ -21,6 +21,7 @@ class ComposantCrudController extends AbstractCrudController
             AssociationField::new('categorie'),
             TextField::new('marque'),
             TextField::new('modele'),
+            'modele_min',
             'id',
             'price',
             'format',

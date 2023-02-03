@@ -1,33 +1,4 @@
 <template>
-  <h1 class="text-center text-success">Votre configuration en détails</h1>
-  <h6 v-if="panier.boitier.marque == undefined">
-    Commencez par ajouter un boitier à votre configuration
-  </h6>
-  <h6 v-if="panier.alimentation.marque == undefined">
-    Ajoutez une alimentation à votre configuration
-  </h6>
-  <h6 v-if="panier.processeur.marque == undefined">
-    Ajoutez un processeur à votre configuration
-  </h6>
-  <h6 v-if="panier.carte_mere.marque == undefined">
-    Ajoutez une carte mère à votre configuration
-  </h6>
-  <h6 v-if="panier.ram.marque == undefined">
-    Ajoutez de la mémoire Ram à votre configuration
-  </h6>
-  <h6 v-if="panier.carte_graphique.marque == undefined">
-    Ajoutez une carte graphique à votre configuration<span
-      v-if="
-        panier.processeur.cg_processeur !== null &&
-        panier.processeur.cg_processeur !== undefined
-      "
-    >
-      (Optionnel car votre processeur contient une partie graphique de base)</span
-    >
-  </h6>
-  <h6 v-if="panier.hdd.marque == undefined && panier.ssd.marque == undefined">
-    Ajoutez un disque dur à votre configuration
-  </h6>
   <div class="container-fluid">
     <!-- si on a un boitier -->
     <div v-if="panier.boitier.marque != undefined">
@@ -87,7 +58,7 @@
     <!-- si on a une carte graphique -->
     <div v-if="panier.carte_graphique.marque != undefined">
       <div class="carte_graphiqueText">
-        <p class="mb-0">{{ panier.carte_graphique.modele_min }}</p>
+        <span class="mb-0">{{ panier.carte_graphique.modele_min }}</span>
         <p class="mt-0">{{ panier.carte_graphique.puissance }} Go</p>
       </div>
       <img
@@ -118,13 +89,30 @@
         alt="image du composant"
       />
     </div>
+    <p class="prix">{{ (prixTotalPanier / 100).toFixed(2).replace(".", ",") }} €</p>
   </div>
-  <hr />
 </template>
 
+<!-- eslint-disable vue/no-side-effects-in-computed-properties -->
 <script>
 export default {
   props: ["panier"],
+  data() {
+    return {
+      prixTotal: 0,
+    };
+  },
+  computed: {
+    prixTotalPanier() {
+      this.prixTotal = 0;
+      for (let composant in this.panier) {
+        if (this.panier[composant].price !== undefined) {
+          this.prixTotal = this.prixTotal + this.panier[composant].price;
+        }
+      }
+      return this.prixTotal;
+    },
+  },
   methods: {
     getImgUrl(cat, id) {
       // eslint-disable-next-line no-undef
@@ -135,9 +123,22 @@ export default {
 </script>
 
 <style scoped>
+@media screen and (max-width: 900px) {
+  .container-fluid {
+    min-width: 100%;
+    position: relative;
+    border: 1px solid black;
+  }
+}
+@media screen and (min-width: 900px) {
+  .container-fluid {
+    max-width: 400px;
+    position: relative;
+    border: 1px solid black;
+  }
+}
+
 .container-fluid {
-  min-width: 95%;
-  position: relative;
   min-height: 220px;
 }
 </style>
@@ -154,6 +155,7 @@ img {
   left: 50%;
   transform: translate(-50%);
 }
+
 .alimText {
   position: absolute;
   top: 0%;
@@ -162,8 +164,13 @@ img {
 .alimImg {
   width: 10%;
   position: absolute;
-  top: 0%;
+  top: 5%;
   left: 1%;
+}
+.processeurText {
+  position: absolute;
+  top: 40%;
+  right: 13%;
 }
 .processeurImg {
   width: 10%;
@@ -171,17 +178,18 @@ img {
   top: 40%;
   right: 1%;
 }
-.carte_mereText {
-  position: absolute;
-  top: 5%;
-  right: 13%;
-}
 .carte_mereImg {
   width: 10%;
   position: absolute;
   top: 5%;
   right: 1%;
 }
+.ramText {
+  position: absolute;
+  top: 80%;
+  right: 13%;
+}
+
 .ramImg {
   width: 10%;
   position: absolute;
@@ -190,7 +198,7 @@ img {
 }
 .carte_graphiqueText {
   position: absolute;
-  top: 30%;
+  top: 25%;
   left: 15%;
 }
 .carte_graphiqueImg {
@@ -201,13 +209,13 @@ img {
 }
 .hddText {
   position: absolute;
-  top: 90%;
+  top: 80%;
   left: 15%;
 }
 .hddImg {
   width: 10%;
   position: absolute;
-  top: 90%;
+  top: 80%;
   left: 1%;
 }
 .ssdText {
@@ -218,7 +226,17 @@ img {
 .ssdImg {
   width: 10%;
   position: absolute;
-  top: 60%;
+  top: 55%;
   left: 1%;
+}
+.prix {
+  position: absolute;
+  background-color: aqua;
+  border-radius: 30%;
+  padding: 1px;
+  font-size: x-large;
+  top: 80%;
+  left: 50%;
+  transform: translate(-50%);
 }
 </style>

@@ -1,10 +1,10 @@
 <template>
   <div class="card m-2 py-2" style="width: 18rem">
-    <img
+    <!-- <img
       :src="getImgUrl(composant.categorie.name, composant.id)"
       class="card-img-top"
       alt="image du composant"
-    />
+    /> -->
     <div class="card-body">
       <h5 class="card-title">{{ composant.marque }}</h5>
       <h6 class="card-text">{{ composant.modele }}</h6>
@@ -13,7 +13,7 @@
       </h5>
       <p class="card-text"></p>
       <p class="card-text" v-if="composant.format !== null">
-        Format : {{ formatMaxFn(composant.format) }}
+        <!-- Format : {{ formatMaxFn(composant.format) }} -->
       </p>
       <p class="card-text m-0" v-if="composant.socket !== null">
         Socket : {{ composant.socket }}
@@ -30,9 +30,7 @@
 
 <script>
 export default {
-  props: {
-    composant: {},
-  },
+  props: ["composant"],
   methods: {
     getImgUrl(cat, id) {
       // eslint-disable-next-line no-undef

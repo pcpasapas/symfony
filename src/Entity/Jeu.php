@@ -1,0 +1,53 @@
+<?php
+
+namespace App\Entity;
+
+use App\Repository\JeuRepository;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\UX\Turbo\Attribute\Broadcast;
+
+#[ORM\Entity(repositoryClass: JeuRepository::class)]
+#[Broadcast]
+class Jeu
+{
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $name = null;
+
+    #[ORM\OneToOne(inversedBy: 'jeu', cascade: ['persist', 'remove'], fetch: "EAGER")]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Panier $panier = null;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getPanier(): ?Panier
+    {
+        return $this->panier;
+    }
+
+    public function setPanier(Panier $panier): self
+    {
+        $this->panier = $panier;
+
+        return $this;
+    }
+}

@@ -5,10 +5,16 @@ namespace App\Entity;
 use App\Entity\Composant;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\PanierRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: PanierRepository::class)]
 class Panier
 {
+    private Collection $panier;
+    public function __construct() {
+        $this->panier = new ArrayCollection();
+    }
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -27,19 +33,22 @@ class Panier
     private ?Composant $processeur = null;
 
     #[ORM\ManyToOne(targetEntity:Composant::class, fetch:"EAGER")]
-    private ?Composant $Carte_mere = null;
+    public ?Composant $Carte_mere = null;
 
     #[ORM\ManyToOne(targetEntity:Composant::class, fetch:"EAGER")]
-    private ?Composant $carte_graphique = null;
+    public ?Composant $carte_graphique = null;
 
     #[ORM\ManyToOne(targetEntity:Composant::class, fetch:"EAGER")]
-    private ?Composant $ssd = null;
+    public ?Composant $ssd = null;
 
     #[ORM\ManyToOne(targetEntity:Composant::class, fetch:"EAGER")]
-    private ?Composant $hdd= null;
+    public ?Composant $hdd= null;
 
     #[ORM\ManyToOne(targetEntity:Composant::class, fetch:"EAGER")]
-    private ?Composant $ram = null;
+    public ?Composant $ram = null;
+
+    #[ORM\OneToOne(mappedBy: 'panier', cascade: ['persist', 'remove'])]
+    private ?Jeu $jeu = null;
 
     public function getId(): ?int
     {
@@ -179,6 +188,23 @@ class Panier
     public function setRam(?Composant $ram): self
     {
         $this->ram = $ram;
+
+        return $this;
+    }
+
+    public function getJeu(): ?Jeu
+    {
+        return $this->jeu;
+    }
+
+    public function setJeu(Jeu $jeu): self
+    {
+        // set the owning side of the relation if necessary
+        if ($jeu->getPanier() !== $this) {
+            $jeu->setPanier($this);
+        }
+
+        $this->jeu = $jeu;
 
         return $this;
     }

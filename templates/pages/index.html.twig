@@ -9,6 +9,20 @@
       <a href="{{ path('configurateur') }}" class="btn btn-primary btn-lg px-4">Commencez à configurer l'ordinateur de vos rêves</a>
     </div>
     <h1 class="pt-3">Les dernières configurations</h1>
+    <div {{ vue_component('configDetailsMini',
+    { 'panier' :
+        {
+            'boitier' : panier.boitier,
+            'alimentation' : panier.alimentation,
+            'processeur' : panier.processeur,
+            'carte_mere' :panier.carteMere,
+            'ram' : panier.ram,
+            'carte_graphique' : panier.carteGraphique,
+            'ssd' : panier.ssd,
+            'hdd' : panier.hdd,
+        }
+    }
+)}}></div>
     <h1 class="pt-3">Les différents composants d'un ordinateur</h1>
     <div class="container">
       <img src="images/composition.jpg" class="mx-auto d-flex img-fluid" alt="">

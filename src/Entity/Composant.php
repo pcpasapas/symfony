@@ -19,7 +19,7 @@ class Composant
     #[ORM\Column(length: 255)]
     public ?string $marque = "";
 
-    #[ORM\ManyToOne(inversedBy: 'composants', targetEntity: Categorie::class)]
+    #[ORM\ManyToOne(inversedBy: 'composants', targetEntity: Categorie::class, fetch:'EAGER')]
     #[ORM\JoinColumn(nullable: false)]
     public ?Categorie $categorie = null;
 
@@ -39,19 +39,22 @@ class Composant
     private ?string $image = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $couleur = null;
+    public ?string $couleur = null;
 
     #[ORM\Column(nullable: true)]
-    private ?int $puissance = null;
+    public ?int $puissance = null;
 
     #[ORM\Column(length: 500, nullable: true)]
     private ?string $lien = null;
 
     #[ORM\Column(length: 20, nullable: true)]
-    private ?string $socket = null;
+    public ?string $socket = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     public ?string $cg_processeur = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    public ?string $modele_min = null;
 
     public function __toString(): string
     {
@@ -204,6 +207,18 @@ class Composant
     public function setCgProcesseur(?string $cg_processeur): self
     {
         $this->cg_processeur = $cg_processeur;
+
+        return $this;
+    }
+
+    public function getModeleMin(): ?string
+    {
+        return $this->modele_min;
+    }
+
+    public function setModeleMin(?string $modele_min): self
+    {
+        $this->modele_min = $modele_min;
 
         return $this;
     }
