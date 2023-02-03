@@ -38,5 +38,5 @@ jobs:
         touch data/database.sqlite
     - name: Execute tests (Unit and Feature tests) via PHPUnit
       env:
-        DATABASE_URL: sqlite:///%kernel.project_dir%/data/database.sqlite
+        DATABASE_URL: mysql://dx1r7dkm3yuoz6ro:rvu3an2fiacr2r3f@ilzyz0heng1bygi8.chr7pe7iynqr.eu-west-1.rds.amazonaws.com/x31002p6p2qfy2ft?serverVersion=8&charset=utf8mb4
       run: vendor/bin/phpunit
