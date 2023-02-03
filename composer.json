@@ -1,4 +1,6 @@
 {
+    "name": "pcpasapas/symfony",
+    "description": "création d'un site de test e-shopping en vue js et symfony",
     "type": "project",
     "license": "proprietary",
     "minimum-stability": "stable",
