@@ -1,49 +1,49 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller;
 
 use App\Entity\Categorie;
 use App\Entity\Composant;
 use App\Form\ComposantFormType;
-use App\Repository\CategorieRepository;
 use App\Repository\ComposantRepository;
-use App\Repository\PanierRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ComposantController extends AbstractController
 {
-
-    public function __construct(private CategorieRepository $categorieRepo, private ComposantRepository $composantRepo) {}
-
+    private ComposantRepository $composantRepo;
+    public function __construct()
+    {
+    }
 
     #[Route('/composant', name: 'app_composant')]
     public function index(): Response
     {
         $composants = $this->composantRepo->createQueryBuilder('p')
-        ->andWhere('p.categorie = :categorie')
-        ->setParameter('categorie', 1)
-        ->setMaxResults(10)
-        ->getQuery()
-        ->getResult();
+            ->andWhere('p.categorie = :categorie')
+            ->setParameter('categorie', 1)
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult();
         return $this->render('composant/index.html.twig');
     }
 
     #[Route('/composants/{id}', name: 'app_composant_by_composant')]
     /**
      * retourne le json prend l'id de la categorie et retourne les composants de cette catégorie
-     * @param Categorie $categorie
-     * @return JsonResponse
      */
-    public function index_by_composant(Categorie $categorie): JsonResponse {
+    public function indexByComposant(Categorie $categorie): JsonResponse
+    {
         $composants = $this->composantRepo->getResultsFilter($categorie)[0]->getQuery()->getResult();
         $message = $this->composantRepo->getResultsFilter($categorie)[1];
         $message2 = $this->composantRepo->getResultsFilter($categorie)[2];
-        return $this->Json ([$composants, $message, $message2]);
+        return $this->Json([$composants, $message, $message2]);
     }
 
     #[Route('/composantEdit', methods: ['POST'], name:'app_composant_edit')]
@@ -54,9 +54,8 @@ class ComposantController extends AbstractController
         $composant_form = $this->createForm(ComposantFormType::class, $composant);
 
         return $this->redirectToRoute('category', [
-            'composant_form' => $composant_form
+            'composant_form' => $composant_form,
         ]);
-
     }
 
     #[Route('/composantDelete', methods: ['POST'], name: 'app_composant_delete')]

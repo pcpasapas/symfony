@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller;
 
 use App\Entity\Admin;
@@ -16,16 +18,24 @@ use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 class RegistrationController extends AbstractController
 {
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, AppAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
-    {
+    public function register(
+        Request $request,
+        UserPasswordHasherInterface $userPasswordHasher,
+        UserAuthenticatorInterface $userAuthenticator,
+        AppAuthenticator $authenticator,
+        EntityManagerInterface $entityManager
+    ): Response {
         $user = new Admin();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
             $password = $form->get('plainPassword')->getData();
             $passwordConfirm = $form->get('plainPasswordConfirm')->getData();
-            if($passwordConfirm != $password || !is_string($password))
-            $form->get('plainPasswordConfirm')->addError(new \Symfony\Component\Form\FormError('Les mots de passe ne correspondent pas.'));
+            if ($passwordConfirm !== $password || ! is_string($password)) {
+                $form->get('plainPasswordConfirm')->addError(
+                    new \Symfony\Component\Form\FormError('Les mots de passe ne correspondent pas.')
+                );
+            }
         }
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password

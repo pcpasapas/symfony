@@ -1,17 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller;
 
 use App\Entity\Categorie;
 use App\Repository\CategorieRepository;
 use Symfony\Bridge\Doctrine\ManagerRegistry;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Messenger\Transport\Serialization\SerializerInterface as SerializationSerializerInterface;
-use Symfony\Component\Serializer\SerializerInterface;
 
 class CategorieController extends AbstractController
 {
@@ -29,7 +29,6 @@ class CategorieController extends AbstractController
         $categories = $categorieRepository->findAll();
         return $this->Json($categories);
     }
-
 
     #[Route('/categorieDelete', methods: ['POST'], name: 'app_categorie_delete')]
     public function delete(ManagerRegistry $doctrine, Request $request): Response

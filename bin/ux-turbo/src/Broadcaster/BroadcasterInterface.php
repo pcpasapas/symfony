@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Symfony package.
  *
@@ -16,10 +18,10 @@ namespace Symfony\UX\Turbo\Broadcaster;
  *
  * @author Kévin Dunglas <kevin@dunglas.fr>
  */
-interface BroadcasterInterface
+interface Broadcaster
 {
     /**
-     * @param array{id?: string|string[], transports?: string|string[], topics?: string|string[], template?: string, rendered_action?: string} $options
+     * @param array{id?: (string|array<string>), transports?: (string|array<string>), topics?: (string|array<string>), template?: string, rendered_action?: string} $options
      */
     public function broadcast(object $entity, string $action, array $options): void;
 }

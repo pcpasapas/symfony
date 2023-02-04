@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Symfony package.
  *
@@ -35,14 +37,11 @@ final class TwigExtension extends AbstractExtension
         yield new TwigFunction('turbo_stream_listen', [$this, 'turboStreamListen'], ['needs_environment' => true, 'is_safe' => ['html']]);
     }
 
-    /**
-     * @param object|string $topic
-     */
-    public function turboStreamListen(Environment $env, $topic, ?string $transport = null): string
+    public function turboStreamListen(Environment $env, object|string $topic, ?string $transport = null): string
     {
         $transport = $transport ?? $this->default;
 
-        if (!$this->turboStreamListenRenderers->has($transport)) {
+        if (! $this->turboStreamListenRenderers->has($transport)) {
             throw new \InvalidArgumentException(sprintf('The Turbo stream transport "%s" doesn\'t exist.', $transport));
         }
 

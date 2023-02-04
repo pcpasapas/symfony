@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Symfony package.
  *
@@ -28,7 +30,7 @@ final class TwigBroadcaster implements BroadcasterInterface
     /**
      * @param array<string, string> $templatePrefixes
      */
-    public function __construct(BroadcasterInterface $broadcaster, Environment $twig, array $templatePrefixes = [], IdAccessor $idAccessor = null)
+    public function __construct(BroadcasterInterface $broadcaster, Environment $twig, array $templatePrefixes = [], ?IdAccessor $idAccessor = null)
     {
         $this->broadcaster = $broadcaster;
         $this->twig = $twig;
@@ -41,14 +43,14 @@ final class TwigBroadcaster implements BroadcasterInterface
      */
     public function broadcast(object $entity, string $action, array $options): void
     {
-        if (!isset($options['id']) && null !== $id = $this->idAccessor->getEntityId($entity)) {
+        if (! isset($options['id']) && null !== $id = $this->idAccessor->getEntityId($entity)) {
             $options['id'] = $id;
         }
 
         if (null === $template = $options['template'] ?? null) {
-            $template = \get_class($entity);
+            $template = $entity::class;
             foreach ($this->templatePrefixes as $namespace => $prefix) {
-                if (0 === strpos($template, $namespace)) {
+                if (strpos($template, $namespace) === 0) {
                     $template = substr_replace($template, $prefix, 0, \strlen($namespace));
                     break;
                 }

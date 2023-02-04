@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use App\Repository\AdminRepository;
@@ -34,7 +36,6 @@ class Admin implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Panier::class)]
     private Collection $paniers;
-
 
     public function __construct()
     {
@@ -110,7 +111,7 @@ class Admin implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @see UserInterface
      */
-    public function eraseCredentials()
+    public function eraseCredentials(): void
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
@@ -126,7 +127,7 @@ class Admin implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function addPanier(Panier $panier): self
     {
-        if (!$this->paniers->contains($panier)) {
+        if (! $this->paniers->contains($panier)) {
             $this->paniers->add($panier);
             $panier->setUser($this);
         }
@@ -145,5 +146,4 @@ class Admin implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-
 }

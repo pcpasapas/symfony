@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Symfony package.
  *
@@ -31,24 +33,24 @@ final class BroadcastListener implements ResetInterface
     private $annotationReader;
 
     /**
-     * @var array<class-string, array[]>
+     * @var array<class-string, array<array>>
      */
-    private $broadcastedClasses;
+    private array $broadcastedClasses;
 
     /**
      * @var \SplObjectStorage<object, array>
      */
-    private $createdEntities;
+    private \SplObjectStorage $createdEntities;
     /**
      * @var \SplObjectStorage<object, array>
      */
-    private $updatedEntities;
+    private \SplObjectStorage $updatedEntities;
     /**
      * @var \SplObjectStorage<object, array>
      */
-    private $removedEntities;
+    private \SplObjectStorage $removedEntities;
 
-    public function __construct(BroadcasterInterface $broadcaster, Reader $annotationReader = null)
+    public function __construct(BroadcasterInterface $broadcaster, ?Reader $annotationReader = null)
     {
         $this->reset();
 
@@ -61,7 +63,7 @@ final class BroadcastListener implements ResetInterface
      */
     public function onFlush(EventArgs $eventArgs): void
     {
-        if (!$eventArgs instanceof OnFlushEventArgs) {
+        if (! $eventArgs instanceof OnFlushEventArgs) {
             return;
         }
 
@@ -85,7 +87,7 @@ final class BroadcastListener implements ResetInterface
      */
     public function postFlush(EventArgs $eventArgs): void
     {
-        if (!$eventArgs instanceof PostFlushEventArgs) {
+        if (! $eventArgs instanceof PostFlushEventArgs) {
             return;
         }
 
@@ -94,7 +96,7 @@ final class BroadcastListener implements ResetInterface
         try {
             foreach ($this->createdEntities as $entity) {
                 $options = $this->createdEntities[$entity];
-                $id = $em->getClassMetadata(\get_class($entity))->getIdentifierValues($entity);
+                $id = $em->getClassMetadata($entity::class)->getIdentifierValues($entity);
                 foreach ($options as $option) {
                     $option['id'] = $id;
                     $this->broadcaster->broadcast($entity, Broadcast::ACTION_CREATE, $option);
@@ -126,9 +128,9 @@ final class BroadcastListener implements ResetInterface
 
     private function storeEntitiesToPublish(EntityManagerInterface $em, object $entity, string $property): void
     {
-        $class = \get_class($entity);
+        $class = $entity::class;
 
-        if (!isset($this->broadcastedClasses[$class])) {
+        if (! isset($this->broadcastedClasses[$class])) {
             $this->broadcastedClasses[$class] = [];
             $r = null;
 
@@ -146,7 +148,7 @@ final class BroadcastListener implements ResetInterface
         }
 
         if ($options = $this->broadcastedClasses[$class]) {
-            if ('createdEntities' !== $property) {
+            if ($property !== 'createdEntities') {
                 $id = $em->getClassMetadata($class)->getIdentifierValues($entity);
                 foreach ($options as $k => $option) {
                     $options[$k]['id'] = $id;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Symfony package.
  *
@@ -37,10 +39,10 @@ final class TurboBundle extends Bundle
         $container->addCompilerPass(new class() implements CompilerPassInterface {
             public function process(ContainerBuilder $container): void
             {
-                if (!$container->hasDefinition('turbo.broadcaster.imux')) {
+                if (! $container->hasDefinition('turbo.broadcaster.imux')) {
                     return;
                 }
-                if (!$container->getDefinition('turbo.broadcaster.imux')->getArgument(0)->getValues()) {
+                if (! $container->getDefinition('turbo.broadcaster.imux')->getArgument(0)->getValues()) {
                     $container->removeDefinition('turbo.doctrine.event_listener');
                 }
             }

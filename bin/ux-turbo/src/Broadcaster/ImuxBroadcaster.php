@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Symfony package.
  *
@@ -21,7 +23,7 @@ final class ImuxBroadcaster implements BroadcasterInterface
     private $broadcasters;
 
     /**
-     * @param BroadcasterInterface[] $broadcasters
+     * @param iterable<BroadcasterInterface> $broadcasters
      */
     public function __construct(iterable $broadcasters)
     {

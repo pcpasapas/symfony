@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Symfony package.
  *
@@ -49,7 +51,7 @@ final class TurboExtension extends Extension
      */
     private function registerTwig(array $config, ContainerBuilder $container): void
     {
-        if (!class_exists(TwigBundle::class)) {
+        if (! class_exists(TwigBundle::class)) {
             return;
         }
 
@@ -66,7 +68,7 @@ final class TurboExtension extends Extension
      */
     private function registerBroadcast(array $config, ContainerBuilder $container, LoaderInterface $loader): void
     {
-        if (!$config['broadcast']['enabled']) {
+        if (! $config['broadcast']['enabled']) {
             $container->removeDefinition('turbo.twig.extension');
             $container->removeDefinition('turbo.doctrine.event_listener');
 
@@ -78,13 +80,13 @@ final class TurboExtension extends Extension
             ->addTag('turbo.broadcaster')
         ;
 
-        if (!$config['broadcast']['doctrine_orm']['enabled']) {
+        if (! $config['broadcast']['doctrine_orm']['enabled']) {
             $container->removeDefinition('turbo.doctrine.event_listener');
 
             return;
         }
 
-        if (!class_exists(DoctrineBundle::class) || !interface_exists(EntityManagerInterface::class)) {
+        if (! class_exists(DoctrineBundle::class) || ! interface_exists(EntityManagerInterface::class)) {
             throw new InvalidConfigurationException('You cannot use the Doctrine ORM integration as the Doctrine bundle is not installed. Try running "composer require symfony/orm-pack".');
         }
     }

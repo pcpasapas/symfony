@@ -1,20 +1,44 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
-use App\Entity\Composant;
-use Doctrine\ORM\Mapping as ORM;
 use App\Repository\PanierRepository;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PanierRepository::class)]
 class Panier
 {
+
+    #[ORM\ManyToOne(fetch:'EAGER')]
+    public ?Composant $alimentation = null;
+
+    #[ORM\ManyToOne(targetEntity:Composant::class, fetch:'EAGER')]
+    public ?Composant $boitier = null;
+
+    #[ORM\ManyToOne(targetEntity:Composant::class, fetch:'EAGER')]
+    public ?Composant $Carte_mere = null;
+
+    #[ORM\ManyToOne(targetEntity:Composant::class, fetch:'EAGER')]
+    public ?Composant $carte_graphique = null;
+
+    #[ORM\ManyToOne(targetEntity:Composant::class, fetch:'EAGER')]
+    public ?Composant $ssd = null;
+
+    #[ORM\ManyToOne(targetEntity:Composant::class, fetch:'EAGER')]
+    public ?Composant $hdd = null;
+
+    #[ORM\ManyToOne(targetEntity:Composant::class, fetch:'EAGER')]
+    public ?Composant $ram = null;
+    /**
+     * Summary of panier
+     *
+     * @phan-write-only
+     */
     private Collection $panier;
-    public function __construct() {
-        $this->panier = new ArrayCollection();
-    }
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -23,32 +47,16 @@ class Panier
     #[ORM\ManyToOne(inversedBy: 'paniers')]
     private ?Admin $user = null;
 
-    #[ORM\ManyToOne(fetch:'EAGER')]
-    public ?Composant $alimentation = null;
-
     #[ORM\ManyToOne(targetEntity:Composant::class, fetch:'EAGER')]
-    public ?Composant $boitier = null;
-
-    #[ORM\ManyToOne(targetEntity:Composant::class, fetch:"EAGER")]
     private ?Composant $processeur = null;
-
-    #[ORM\ManyToOne(targetEntity:Composant::class, fetch:"EAGER")]
-    public ?Composant $Carte_mere = null;
-
-    #[ORM\ManyToOne(targetEntity:Composant::class, fetch:"EAGER")]
-    public ?Composant $carte_graphique = null;
-
-    #[ORM\ManyToOne(targetEntity:Composant::class, fetch:"EAGER")]
-    public ?Composant $ssd = null;
-
-    #[ORM\ManyToOne(targetEntity:Composant::class, fetch:"EAGER")]
-    public ?Composant $hdd= null;
-
-    #[ORM\ManyToOne(targetEntity:Composant::class, fetch:"EAGER")]
-    public ?Composant $ram = null;
 
     #[ORM\OneToOne(mappedBy: 'panier', cascade: ['persist', 'remove'])]
     private ?Jeu $jeu = null;
+
+    public function __construct()
+    {
+        $this->panier = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -108,7 +116,6 @@ class Panier
             $this->carte_graphique = $composant;
         }
         if ($categorie === 'Disque Dur SSD') {
-
             $this->ssd = $composant;
         }
         if ($categorie === 'Disque Dur HDD') {
@@ -137,7 +144,7 @@ class Panier
         return $this->Carte_mere;
     }
 
-    public function setCarte_mere(?Composant $Carte_mere): self
+    public function setCarteMere(?Composant $Carte_mere): self
     {
         $this->Carte_mere = $Carte_mere;
 
@@ -149,7 +156,7 @@ class Panier
         return $this->carte_graphique;
     }
 
-    public function setcarte_graphique(?Composant $carte_graphique): self
+    public function setcarteGraphique(?Composant $carte_graphique): self
     {
         $this->carte_graphique = $carte_graphique;
 
@@ -208,9 +215,4 @@ class Panier
 
         return $this;
     }
-
-
-
-
-
 }

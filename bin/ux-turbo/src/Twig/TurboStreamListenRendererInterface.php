@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Symfony package.
  *
@@ -18,10 +20,7 @@ use Twig\Environment;
  *
  * @author Kévin Dunglas <kevin@dunglas.fr>
  */
-interface TurboStreamListenRendererInterface
+interface TurboStreamListenRenderer
 {
-    /**
-     * @param string|object $topic
-     */
-    public function renderTurboStreamListen(Environment $env, $topic): string;
+    public function renderTurboStreamListen(Environment $env, string|object $topic): string;
 }

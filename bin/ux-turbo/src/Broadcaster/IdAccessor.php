@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Symfony package.
  *
@@ -20,18 +22,18 @@ class IdAccessor
     private $propertyAccessor;
     private $doctrine;
 
-    public function __construct(PropertyAccessorInterface $propertyAccessor = null, ManagerRegistry $doctrine = null)
+    public function __construct(?PropertyAccessorInterface $propertyAccessor = null, ?ManagerRegistry $doctrine = null)
     {
         $this->propertyAccessor = $propertyAccessor ?? (class_exists(PropertyAccess::class) ? PropertyAccess::createPropertyAccessor() : null);
         $this->doctrine = $doctrine;
     }
 
     /**
-     * @return string[]
+     * @return ?array<string>
      */
     public function getEntityId(object $entity): ?array
     {
-        $entityClass = \get_class($entity);
+        $entityClass = $entity::class;
 
         if ($this->doctrine && $em = $this->doctrine->getManagerForClass($entityClass)) {
             return $em->getClassMetadata($entityClass)->getIdentifierValues($entity);

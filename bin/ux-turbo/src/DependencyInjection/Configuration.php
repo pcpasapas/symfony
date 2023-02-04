@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Symfony package.
  *
@@ -29,21 +31,21 @@ final class Configuration implements ConfigurationInterface
         $rootNode = $treeBuilder->getRootNode();
         $rootNode
             ->children()
-                ->arrayNode('broadcast')
-                    ->canBeDisabled()
-                    ->children()
-                        ->arrayNode('entity_template_prefixes')
-                            ->fixXmlConfig('entity_template_prefix')
-                            ->defaultValue(['App\Entity\\' => 'broadcast/'])
-                            ->scalarPrototype()->end()
-                        ->end()
-                        ->arrayNode('doctrine_orm')
-                            ->info('Enable the Doctrine ORM integration')
-                            ->{class_exists(DoctrineBundle::class) && interface_exists(EntityManagerInterface::class) ? 'canBeDisabled' : 'canBeEnabled'}()
-                        ->end()
-                    ->end()
-                ->end()
-                ->scalarNode('default_transport')->defaultValue('default')->end()
+            ->arrayNode('broadcast')
+            ->canBeDisabled()
+            ->children()
+            ->arrayNode('entity_template_prefixes')
+            ->fixXmlConfig('entity_template_prefix')
+            ->defaultValue(['App\Entity\\' => 'broadcast/'])
+            ->scalarPrototype()->end()
+            ->end()
+            ->arrayNode('doctrine_orm')
+            ->info('Enable the Doctrine ORM integration')
+            ->{class_exists(DoctrineBundle::class) && interface_exists(EntityManagerInterface::class) ? 'canBeDisabled' : 'canBeEnabled'}()
+            ->end()
+            ->end()
+            ->end()
+            ->scalarNode('default_transport')->defaultValue('default')->end()
             ->end()
         ;
 

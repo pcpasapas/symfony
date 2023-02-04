@@ -1,8 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repository;
 
-use App\Entity\Composant;
 use App\Entity\Panier;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -12,8 +13,8 @@ use Doctrine\Persistence\ManagerRegistry;
  *
  * @method Panier|null find($id, $lockMode = null, $lockVersion = null)
  * @method Panier|null findOneBy(array $criteria, array $orderBy = null)
- * @method Panier[]    findAll()
- * @method Panier[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method array<Panier> findAll()
+ * @method array<Panier> findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class PanierRepository extends ServiceEntityRepository
 {
@@ -47,6 +48,4 @@ class PanierRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
-
-
 }

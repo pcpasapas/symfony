@@ -1,23 +1,22 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
-use App\Entity\Categorie;
-use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ComposantRepository;
-use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ComposantRepository::class)]
 class Composant
 {
-
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     public ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    public ?string $marque = "";
+    public ?string $marque = '';
 
     #[ORM\ManyToOne(inversedBy: 'composants', targetEntity: Categorie::class, fetch:'EAGER')]
     #[ORM\JoinColumn(nullable: false)]
@@ -33,19 +32,10 @@ class Composant
     public ?string $format = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $dimensions = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $image = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
     public ?string $couleur = null;
 
     #[ORM\Column(nullable: true)]
     public ?int $puissance = null;
-
-    #[ORM\Column(length: 500, nullable: true)]
-    private ?string $lien = null;
 
     #[ORM\Column(length: 20, nullable: true)]
     public ?string $socket = null;
@@ -56,11 +46,19 @@ class Composant
     #[ORM\Column(length: 255, nullable: true)]
     public ?string $modele_min = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $dimensions = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $image = null;
+
+    #[ORM\Column(length: 500, nullable: true)]
+    private ?string $lien = null;
+
     public function __toString(): string
     {
         return $this->marque;
     }
-
 
     public function getId(): ?int
     {
@@ -222,5 +220,4 @@ class Composant
 
         return $this;
     }
-
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Symfony package.
  *
@@ -30,20 +32,20 @@ final class Broadcast
     public const ACTION_REMOVE = 'remove';
 
     /**
-     * @var mixed[]
+     * @var array<mixed>
      */
-    public $options;
+    public array $options;
 
     /**
      * Options can be any option supported by the broadcaster.
      *
      * @see Broadcaster for the default options when using Mercure
      *
-     * @param mixed[] ...$options
+     * @param array<mixed> ...$options
      */
-    public function __construct(...$options)
+    public function __construct(array ...$options)
     {
-        if ([0] === array_keys($options) && \is_array($options[0]) && \is_string(key($options[0]))) {
+        if (array_keys($options) === [0] && \is_array($options[0]) && \is_string(key($options[0]))) {
             $options = $options[0];
         }
 

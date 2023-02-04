@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Symfony package.
  *
@@ -42,8 +44,7 @@ final class Broadcaster implements BroadcasterInterface
     private $name;
     private $hub;
 
-    /** @var ExpressionLanguage|null */
-    private $expressionLanguage;
+    private ?ExpressionLanguage $expressionLanguage = null;
 
     public function __construct(string $name, HubInterface $hub)
     {
@@ -60,34 +61,34 @@ final class Broadcaster implements BroadcasterInterface
      */
     public function broadcast(object $entity, string $action, array $options): void
     {
-        if (isset($options['transports']) && !\in_array($this->name, (array) $options['transports'], true)) {
+        if (isset($options['transports']) && ! \in_array($this->name, (array) $options['transports'], true)) {
             return;
         }
 
-        $entityClass = \get_class($entity);
+        $entityClass = $entity::class;
 
-        if (!isset($options['rendered_action'])) {
+        if (! isset($options['rendered_action'])) {
             throw new \InvalidArgumentException(sprintf('Cannot broadcast entity of class "%s" as option "rendered_action" is missing.', $entityClass));
         }
 
-        if (!isset($options['topics']) && !isset($options['id'])) {
+        if (! isset($options['topics']) && ! isset($options['id'])) {
             throw new \InvalidArgumentException(sprintf('Cannot broadcast entity of class "%s": either option "topics" or "id" is missing, or the PropertyAccess component is not installed. Try running "composer require property-access".', $entityClass));
         }
 
         $topics = [];
 
         foreach ((array) ($options['topics'] ?? []) as $topic) {
-            if (!\is_string($topic)) {
+            if (! \is_string($topic)) {
                 $topics[] = $topic;
                 continue;
             }
 
-            if (0 !== strpos($topic, '@=')) {
+            if (strpos($topic, '@=') !== 0) {
                 $topics[] = $topic;
                 continue;
             }
 
-            if (null === $this->expressionLanguage) {
+            if ($this->expressionLanguage === null) {
                 throw new \LogicException('The "@=" expression syntax cannot be used without the Expression Language component. Try running "composer require symfony/expression-language".');
             }
 
@@ -96,7 +97,7 @@ final class Broadcaster implements BroadcasterInterface
 
         $options['topics'] = $topics;
 
-        if (0 === \count($options['topics'])) {
+        if (\count($options['topics']) === 0) {
             $options['topics'] = (array) sprintf(self::TOPIC_PATTERN, rawurlencode($entityClass), rawurlencode(implode('-', (array) $options['id'])));
         }
 

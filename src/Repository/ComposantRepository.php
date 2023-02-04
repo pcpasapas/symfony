@@ -1,26 +1,29 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repository;
 
-use App\Entity\Categorie;
 use App\Entity\Composant;
-use App\Repository\PanierRepository;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\SecurityBundle\Security;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Composant>
  *
  * @method Composant|null find($id, $lockMode = null, $lockVersion = null)
  * @method Composant|null findOneBy(array $criteria, array $orderBy = null)
- * @method Composant[]    findAll()
- * @method Composant[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method array<Composant> findAll()
+ * @method array<Composant> findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class ComposantRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry, private PanierRepository $panierRepo, private Security $security)
-    {
+    public function __construct(
+        ManagerRegistry $registry,
+        private PanierRepository $panierRepo,
+        private Security $security
+    ) {
         parent::__construct($registry, Composant::class);
     }
 
@@ -31,7 +34,6 @@ class ComposantRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
-
     }
 
     public function remove(Composant $entity, bool $flush = false): void
@@ -45,83 +47,83 @@ class ComposantRepository extends ServiceEntityRepository
 
     public function getResultsFilter($categorie)
     {
-        $message = "";
-        $message2 = "";
+        $message = '';
+        $message2 = '';
         // retrouve les composants en fonction de la categorie choisie
         $composants = $this->createQueryBuilder('p')
-        ->andWhere('p.categorie = :categorie')
-        ->setParameter('categorie', $categorie);
+            ->andWhere('p.categorie = :categorie')
+            ->setParameter('categorie', $categorie);
 
         // trouve le panier de l'utlisateur
         $currentUser = $this->security->getUser();
-        if ($currentUser == null) {
+        if ($currentUser === null) {
             $panier = $this->panierRepo->Find(1);
         } else {
             $panier = $this->panierRepo->findOneBy(['user' => $this->security->getUser()]);
         }
-            // si on veut voir les boitiers
-            if ($categorie->getId() == "1") {
-                // si la carte mere est deja dans le panier
-                $carteMereChoisie = $panier->getCarteMere();
-                if ($carteMereChoisie) {
-                $message = "Les boitiers affichés sont filtrés pour afficher seulement ceux qui sont compatibles avec votre carte mère. Format : " . $carteMereChoisie->getFormat() ;
+        // si on veut voir les boitiers
+        if ($categorie->getId() === '1') {
+            // si la carte mere est deja dans le panier
+            $carteMereChoisie = $panier->getCarteMere();
+            if ($carteMereChoisie) {
+                $message =
+                'Les boitiers affichés sont filtrés pour afficher seulement ceux qui sont
+                compatibles avec votre carte mère. Format : ' . $carteMereChoisie->getFormat();
                 $composants = $composants
                     ->andWhere('p.format LIKE :format')
-                    ->setParameter('format', '%'.$carteMereChoisie->getFormat().'%');
-                }
+                    ->setParameter('format', '%' . $carteMereChoisie->getFormat() . '%');
             }
+        }
 
-            // si on veut voir les processeurs
-            if ($categorie->getId() == "3") {
-                // si la carte mere est deja dans le panier
-                $carteMereChoisie = $panier->getCarteMere();
-                if ($carteMereChoisie) {
-                $message = "Les processeurs affichés sont filtrés pour afficher seulement ceux qui sont compatibles avec votre carte mère. Socket : " . $carteMereChoisie->getSocket();
+        // si on veut voir les processeurs
+        if ($categorie->getId() === '3') {
+            // si la carte mere est deja dans le panier
+            $carteMereChoisie = $panier->getCarteMere();
+            if ($carteMereChoisie) {
+                $message = 'Les processeurs affichés sont filtrés pour afficher seulement ceux qui sont
+                compatibles avec votre carte mère. Socket : ' . $carteMereChoisie->getSocket();
                 $composants = $composants
                     ->andWhere('p.socket = :socket')
                     ->setParameter('socket', $carteMereChoisie->getSocket());
-
-                }
             }
-            // si on veut voir les cartes mères
-            if ($categorie->getId() == "4") {
-                // si le boitier est deja dans le panier
-                $boitierChoisi = $panier->getBoitier();
+        }
+        // si on veut voir les cartes mères
+        if ($categorie->getId() === '4') {
+            // si le boitier est deja dans le panier
+            $boitierChoisi = $panier->getBoitier();
             if ($boitierChoisi) {
-                if ($boitierChoisi->getFormat() == "Micro-ATX") {
+                if ($boitierChoisi->getFormat() === 'Micro-ATX') {
                     $composants = $composants
                         ->andWhere("p.format = 'Micro-ATX'");
                 }
-                if ($boitierChoisi->getFormat() == "Micro-ATX, ATX") {
+                if ($boitierChoisi->getFormat() === 'Micro-ATX, ATX') {
                     $composants = $composants
                         ->andWhere("p.format = 'Micro-ATX'")
                         ->orWhere("p.format = 'ATX'");
                 }
-                if ($boitierChoisi->getFormat() == "Micro-ATX, ATX, E-ATX") {
+                if ($boitierChoisi->getFormat() === 'Micro-ATX, ATX, E-ATX') {
                     $composants = $composants
                         ->andWhere("p.format = 'Micro-ATX'")
                         ->orWhere("p.format = 'ATX'")
                         ->orWhere("p.format = 'E-ATX'");
                 }
-                $message = "Les cartes mères affichées sont filtrées pour afficher seulement celles qui sont
+                $message = 'Les cartes mères affichées sont filtrées pour afficher seulement celles qui sont
                 compatibles le boitier choisi dans votre configuration.
-                Format : " . $boitierChoisi->getFormat() . '. Pour revenir à la selection complète des cartes mères, supprimez votre boitier dans votre configuration';
+                Format : ' . $boitierChoisi->getFormat() . '. Pour revenir à la selection complète des cartes mères,
+                supprimez votre boitier dans votre configuration';
             }
 
-                // si le processeur est deja dans le panier
-                $processeurChoisi = $panier->getProcesseur();
-                if ($processeurChoisi) {
-                $message2 = "Les cartes mères affichées sont filtrées pour afficher seulement celles qui sont compatibles avec votre processeur. Socket : " . $processeurChoisi->getSocket() ;
+            // si le processeur est deja dans le panier
+            $processeurChoisi = $panier->getProcesseur();
+            if ($processeurChoisi) {
+                $message2 = 'Les cartes mères affichées sont filtrées pour afficher seulement celles qui sont
+                compatibles avec votre processeur. Socket : ' . $processeurChoisi->getSocket();
                 $composants = $composants
                     ->andWhere('p.socket = :socket')
                     ->setParameter('socket', $processeurChoisi->getSocket());
-                }
             }
+        }
 
         return [$composants->orderBy('p.price', 'asc'), $message, $message2];
     }
 }
-
-
-
-

@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Form;
 
 use App\Entity\Categorie;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class CategorieFormType extends AbstractType
 {
@@ -14,7 +16,7 @@ class CategorieFormType extends AbstractType
     {
         $builder
             ->add('name', null, [
-                'label' => 'Nom de la catégorie : '
+                'label' => 'Nom de la catégorie : ',
             ])
             ->add('Envoyer', SubmitType::class)
         ;

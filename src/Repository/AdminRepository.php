@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repository;
 
 use App\Entity\Admin;
@@ -14,8 +16,8 @@ use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
  *
  * @method Admin|null find($id, $lockMode = null, $lockVersion = null)
  * @method Admin|null findOneBy(array $criteria, array $orderBy = null)
- * @method Admin[]    findAll()
- * @method Admin[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method array<Admin> findAll()
+ * @method array<Admin> findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class AdminRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
 {
@@ -47,8 +49,8 @@ class AdminRepository extends ServiceEntityRepository implements PasswordUpgrade
      */
     public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
     {
-        if (!$user instanceof Admin) {
-            throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', \get_class($user)));
+        if (! $user instanceof Admin) {
+            throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', $user::class));
         }
 
         $user->setPassword($newHashedPassword);

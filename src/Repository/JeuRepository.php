@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repository;
 
 use App\Entity\Jeu;
@@ -11,8 +13,8 @@ use Doctrine\Persistence\ManagerRegistry;
  *
  * @method Jeu|null find($id, $lockMode = null, $lockVersion = null)
  * @method Jeu|null findOneBy(array $criteria, array $orderBy = null)
- * @method Jeu[]    findAll()
- * @method Jeu[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method array<Jeu> findAll()
+ * @method array<Jeu> findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class JeuRepository extends ServiceEntityRepository
 {
