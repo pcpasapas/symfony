@@ -6,6 +6,7 @@ namespace App\Repository;
 
 use App\Entity\Jeu;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -16,7 +17,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method array<Jeu> findAll()
  * @method array<Jeu> findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class JeuRepository extends ServiceEntityRepository
+final class JeuRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -41,6 +42,10 @@ class JeuRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * retrouver les jeux avec leurs composants
+     * @return array
+     */
     public function findJeux(): array
     {
         return $this->createQueryBuilder('j')

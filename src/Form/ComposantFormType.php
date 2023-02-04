@@ -15,8 +15,14 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ComposantFormType extends AbstractType
 {
+    /**
+     * Summary of buildForm
+     *
+     * @param array<string> $options
+     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $options;
         $builder
             ->add('categorie', EntityType::class, [
                 'class' => Categorie::class,

@@ -17,20 +17,21 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ComposantController extends AbstractController
 {
-    private ComposantRepository $composantRepo;
-    public function __construct()
+
+    public function __construct(private ComposantRepository $composantRepo)
     {
+
     }
 
     #[Route('/composant', name: 'app_composant')]
     public function index(): Response
     {
-        $composants = $this->composantRepo->createQueryBuilder('p')
-            ->andWhere('p.categorie = :categorie')
-            ->setParameter('categorie', 1)
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult();
+        // $composants = $this->composantRepo->createQueryBuilder('p')
+        //     ->andWhere('p.categorie = :categorie')
+        //     ->setParameter('categorie', 1)
+        //     ->setMaxResults(10)
+        //     ->getQuery()
+        //     ->getResult();
         return $this->render('composant/index.html.twig');
     }
 

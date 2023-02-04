@@ -27,6 +27,11 @@ use Symfony\UX\Vue\Twig\VueComponentExtension;
  */
 class VueExtension extends Extension
 {
+    /**
+     * Summary of load
+     *
+     * @param array<mixed> $configs
+     */
     public function load(array $configs, ContainerBuilder $container): void
     {
         $container

@@ -1,48 +1,48 @@
 <?php
 
-declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Entity\Panier;
 use App\Entity\Categorie;
 use App\Entity\Composant;
-use App\Entity\Panier;
 use App\Form\CategorieFormType;
 use App\Form\ComposantFormType;
-use App\Repository\CategorieRepository;
-use App\Repository\ComposantRepository;
 use App\Repository\JeuRepository;
 use App\Repository\PanierRepository;
+use App\Repository\CategorieRepository;
+use App\Repository\ComposantRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class PagesController extends AbstractController
 {
     public function __construct(
         private CategorieRepository $categorieRepository,
         private ComposantRepository $composantRepository,
+        private JeuRepository $jeuRepository,
         private PanierRepository $panierRepository
     ) {
     }
 
     #[Route('/', name: 'homepage')]
-    public function index(PanierRepository $panierRepo): Response
+    public function index(): Response
     {
-        $panier = $panierRepo->find(5);
+        $panier = $this->panierRepository->find(5);
         return $this->render('pages/index.html.twig', [
             'panier' => $panier,
         ]);
     }
 
     #[Route('/jeux', name:'jeux')]
-    public function jeux(JeuRepository $repository): Response
+    public function jeux(): Response
     {
-        $jeux = $repository->findJeux();
+        $jeux = $this->jeuRepository->findJeux();
         return $this->render('pages/jeux.html.twig', [
             'jeux' => (array) $jeux,
         ]);
@@ -75,7 +75,7 @@ class PagesController extends AbstractController
             $composant = new Composant();
         } else {
             $em = $doctrine->getManager();
-            $id = $request->query->get('composant');
+            // $id = $request->query->get('composant');
             $composant = $em->getRepository(Composant::class)->find(1);
         }
 
@@ -114,7 +114,7 @@ class PagesController extends AbstractController
     }
 
     #[Route('/configurateur', name: 'configurateur')]
-    public function configurateur(PanierRepository $panierRepo, ComposantRepository $composant, Security $security)
+    public function configurateur(Security $security): Response
     {
         // Recuperation du panier de l'utilisateur ou alors création d'un panier
         $currentUser = $security->getUser();
@@ -125,7 +125,7 @@ class PagesController extends AbstractController
             if (! $panier) {
                 $panier = new Panier();
                 $panier->setUser($security->getUser());
-                $panierRepo->save($panier, true);
+                $this->panierRepository->save($panier, true);
                 $panier = $this->panierRepository->findOneBy(['user' => $currentUser]);
             }
         }

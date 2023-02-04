@@ -26,13 +26,21 @@ use Twig\TwigFunction;
  */
 class VueComponentExtension extends AbstractExtension
 {
-    private $stimulusExtension;
+    /**
+     * Summary of stimulusExtension
+     */
+    private mixed $stimulusExtension;
 
     public function __construct(StimulusTwigExtension $stimulusExtension)
     {
         $this->stimulusExtension = $stimulusExtension;
     }
 
+    /**
+     * Summary of getFunctions
+     *
+     * @return array<string>
+     */
     public function getFunctions(): array
     {
         return [
@@ -40,6 +48,11 @@ class VueComponentExtension extends AbstractExtension
         ];
     }
 
+    /**
+     * Summary of renderVueComponent
+     *
+     * @param array<mixed> $props
+     */
     public function renderVueComponent(Environment $env, string $componentName, array $props = []): string
     {
         $params = ['component' => $componentName];

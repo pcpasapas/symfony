@@ -17,7 +17,7 @@ use Symfony\Bundle\SecurityBundle\Security;
  * @method array<Composant> findAll()
  * @method array<Composant> findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ComposantRepository extends ServiceEntityRepository
+final class ComposantRepository extends ServiceEntityRepository
 {
     public function __construct(
         ManagerRegistry $registry,
@@ -45,7 +45,12 @@ class ComposantRepository extends ServiceEntityRepository
         }
     }
 
-    public function getResultsFilter($categorie)
+    /**
+     * Summary of getResultsFilter
+     *
+     * @return array<mixed>
+     */
+    public function getResultsFilter(mixed $categorie)
     {
         $message = '';
         $message2 = '';

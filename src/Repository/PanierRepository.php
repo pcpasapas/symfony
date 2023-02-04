@@ -6,6 +6,7 @@ namespace App\Repository;
 
 use App\Entity\Panier;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -16,7 +17,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method array<Panier> findAll()
  * @method array<Panier> findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class PanierRepository extends ServiceEntityRepository
+final class PanierRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -41,7 +42,7 @@ class PanierRepository extends ServiceEntityRepository
         }
     }
 
-    public function findCart()
+    public function findCart(): QueryBuilder
     {
         return $this->createQueryBuilder('p')
             ->andWhere('p.boitier IS NOT NULL')

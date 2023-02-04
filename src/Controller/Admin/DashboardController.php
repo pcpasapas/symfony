@@ -40,12 +40,20 @@ class DashboardController extends AbstractDashboardController
         // return $this->render('some/path/my-dashboard.html.twig');
     }
 
+    /**
+     * Summary of configureDashboard
+     */
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
             ->setTitle('Pc pas à pas');
     }
 
+    /**
+     * Summary of configureMenuItems
+     *
+     * @return iterable<MenuItem>
+     */
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');

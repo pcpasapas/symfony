@@ -26,6 +26,11 @@ class Admin implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $username = null;
 
     #[ORM\Column]
+    /**
+     * Summary of roles
+     *
+     * @var array<string>
+     */
     private array $roles = [];
 
     /**
@@ -75,7 +80,9 @@ class Admin implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @see UserInterface
+     * Summary of getRoles
+     *
+     * @return array<string>
      */
     public function getRoles(): array
     {
@@ -86,6 +93,13 @@ class Admin implements UserInterface, PasswordAuthenticatedUserInterface
         return array_unique($roles);
     }
 
+    /**
+     * Summary of setRoles
+     *
+     * @param array<string> $roles
+     *
+     * @return Admin
+     */
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;

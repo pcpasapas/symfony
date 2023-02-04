@@ -25,6 +25,7 @@ final class Version20230203090339 extends AbstractMigration
 
     public function down(Schema $schema): void
     {
+        $schema;
         // this down() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE composant DROP modele_min');
     }

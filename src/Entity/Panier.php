@@ -12,7 +12,6 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: PanierRepository::class)]
 class Panier
 {
-
     #[ORM\ManyToOne(fetch:'EAGER')]
     public ?Composant $alimentation = null;
 
