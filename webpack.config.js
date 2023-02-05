@@ -70,7 +70,7 @@ fullConfig.optimization = {
         options: {
           encodeOptions: {
             mozjpeg: {
-              quality: 100,
+              quality: 80,
             },
             webp: {
               lossless: true,
@@ -80,7 +80,7 @@ fullConfig.optimization = {
             },
             jpeg: {
               // https://sharp.pixelplumbing.com/api-output#jpeg
-              quality: 100,
+              quality: 80,
             },
           }
         }
