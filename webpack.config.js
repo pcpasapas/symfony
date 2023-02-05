@@ -5,6 +5,7 @@ var webpack = require('webpack')
 const TerserPlugin = require("terser-webpack-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const HtmlMinimizerPlugin = require("html-minimizer-webpack-plugin");
+const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
 
 if (!Encore.isRuntimeEnvironmentConfigured()) {
   Encore.configureRuntimeEnvironment(process.env.NODE_ENV || "dev");
@@ -63,7 +64,29 @@ const fullConfig = Encore.getWebpackConfig();
 fullConfig.optimization = {
   minimize: true,
   minimizer: [
-    new TerserPlugin(), new CssMinimizerPlugin(), new HtmlMinimizerPlugin(),],
+    new TerserPlugin(), new CssMinimizerPlugin(), new HtmlMinimizerPlugin(), new ImageMinimizerPlugin({
+      minimizer: {
+        implementation: ImageMinimizerPlugin.sharpMinify,
+        options: {
+          encodeOptions: {
+            mozjpeg: {
+              quality: 100,
+            },
+            webp: {
+              lossless: true,
+            },
+            avif: {
+              lossless: true,
+            },
+            jpeg: {
+              // https://sharp.pixelplumbing.com/api-output#jpeg
+              quality: 100,
+            },
+          }
+        }
+      }
+    })
+  ],
 },
 
 module.exports = fullConfig
