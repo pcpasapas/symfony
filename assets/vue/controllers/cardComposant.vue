@@ -1,10 +1,10 @@
 <template>
   <div class="card m-2 py-2" style="width: 18rem">
-    <!-- <img
+    <img
       :src="getImgUrl(composant.categorie.name, composant.id)"
       class="card-img-top"
       alt="image du composant"
-    /> -->
+    />
     <div class="card-body">
       <h5 class="card-title">{{ composant.marque }}</h5>
       <h6 class="card-text">{{ composant.modele }}</h6>

@@ -4,9 +4,16 @@
 
 {% block body %}
     <h1 class="pt-3">Créez votre pc pas à pas</h1>
+
     <p class="fs-5 col-md-8">Configurez votre nouvel ordinateur sur mesure...</p>
     <div class="mb-5">
-      <a href="{{ path('configurateur') }}" class="btn btn-primary btn-lg px-4">Commencez à configurer l'ordinateur de vos rêves</a>
+      <a href="{{ path('configurateur') }}" class="btn btn-primary btn-lg px-4">
+        {% if panierUser == null %}
+          Commencez à configurer l'ordinateur de vos rêves
+        {% else %}
+          Poursuivez la configuration de votre ordinateur
+        {% endif %}
+      </a>
     </div>
     <h1 class="pt-3">Les dernières configurations</h1>
     <div {{ vue_component('configDetailsMini',
@@ -25,6 +32,13 @@
 )}}></div>
     <h1 class="pt-3">Les différents composants d'un ordinateur</h1>
     <div class="container">
-      <img src="images/composition.jpg" class="mx-auto d-flex img-fluid" alt="">
+      <img src="images/composition.jpg" class="mx-auto d-flex" alt="composants d'un ordinateur">
     </div>
+
+    <style>
+      img
+      {
+        width: 100%;
+      }
+    </style>
 {% endblock %}

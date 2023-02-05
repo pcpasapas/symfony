@@ -146,7 +146,6 @@ img {
   margin: auto;
   width: 50%;
 }
-
 .boitierImg {
   position: relative;
   width: 35%;

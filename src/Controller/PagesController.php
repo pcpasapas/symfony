@@ -14,8 +14,8 @@ use App\Repository\CategorieRepository;
 use App\Repository\ComposantRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -31,11 +31,18 @@ class PagesController extends AbstractController
     }
 
     #[Route('/', name: 'homepage')]
-    public function index(): Response
+    public function index(Security $security): Response
     {
         $panier = $this->panierRepository->find(5);
+        $user = $security->getUser();
+        if ($user) {
+            $userPanier = $this->panierRepository->findOneBy(['user' => $security->getuser()]);
+        } else {
+            $userPanier = null;
+        }
         return $this->render('pages/index.html.twig', [
             'panier' => $panier,
+            'panierUser' => $userPanier,
         ]);
     }
 

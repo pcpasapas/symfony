@@ -143,7 +143,7 @@ class Panier
         return $this->Carte_mere;
     }
 
-    public function setCarteMere(?Composant $Carte_mere): self
+    public function setCarte_mere(?Composant $Carte_mere): self
     {
         $this->Carte_mere = $Carte_mere;
 
@@ -155,7 +155,7 @@ class Panier
         return $this->carte_graphique;
     }
 
-    public function setcarteGraphique(?Composant $carte_graphique): self
+    public function setcarte_graphique(?Composant $carte_graphique): self
     {
         $this->carte_graphique = $carte_graphique;
 

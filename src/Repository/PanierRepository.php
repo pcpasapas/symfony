@@ -42,6 +42,7 @@ final class PanierRepository extends ServiceEntityRepository
         }
     }
 
+
     public function findCart(): QueryBuilder
     {
         return $this->createQueryBuilder('p')
