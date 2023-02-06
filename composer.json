@@ -42,7 +42,9 @@
         "symfony/string": "6.2.*",
         "symfony/translation": "6.2.*",
         "symfony/twig-bundle": "6.2.*",
+        "symfony/ux-live-component": "^2.7",
         "symfony/ux-turbo": "^2.7",
+        "symfony/ux-twig-component": "^2.7",
         "symfony/ux-vue": "^2.7",
         "symfony/validator": "6.2.*",
         "symfony/web-link": "6.2.*",
@@ -55,7 +57,8 @@
     "config": {
         "allow-plugins": {
             "symfony/flex": true,
-            "symfony/runtime": true
+            "symfony/runtime": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true
         },
         "sort-packages": true
     },

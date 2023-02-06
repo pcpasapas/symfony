@@ -1,0 +1,18 @@
+<div{{ attributes }}>
+    <select
+    class="form-select form-select-lg shadow-lg"
+    name="catégories"
+    id="categoriesSelect"
+  >
+    {% for categorie in this.categories %}
+    <option
+      name="categories"
+      id="categories"
+      :value="categorie.id"
+      :key="categorie.id"
+    >
+      {{ categorie.name }}
+    </option>
+    {% endfor %}
+  </select>
+</div>

@@ -79,7 +79,6 @@ export default {
         .get("/composants/" + this.categorieSelect)
         .catch((err) => console.log(err, this.composantsLoad))
         .then((response) => {
-          console.log(response.data);
           this.composantsLoad = response.data[0];
           this.message = response.data[1];
           this.message2 = response.data[2];
