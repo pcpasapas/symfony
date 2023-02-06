@@ -1,0 +1,25 @@
+<div{{ attributes }}>
+    <select
+    class="form-select form-select-lg shadow-lg"
+    data-model="categorie.id"
+    name="catégories"
+    id="categoriesSelect"
+  >
+    {% for categorie in this.categories %}
+    <option
+      name="categories"
+      id="categories"
+      value= "{{categorie.id}}"
+      :key="categorie.id"
+    >
+      {{ categorie.name }}
+    </option>
+    {% endfor %}
+  </select>
+  {{ categorie.id }}
+  {% for composant in this.composants %}
+  {{ component('card_composant', {
+    composant : composant
+  }) }}
+  {% endfor %}
+</div>

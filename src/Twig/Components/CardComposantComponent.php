@@ -2,20 +2,27 @@
 
 namespace App\Twig\Components;
 
-use App\Repository\CategorieRepository;
-use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
+use App\Entity\Composant;
+use App\Repository\ComposantRepository;
+use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
+use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
+use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
-#[AsLiveComponent('card_composant')]
+#[AsTwigComponent('card_composant')]
 final class CardComposantComponent
 {
     use DefaultActionTrait;
+    public $composant;
 
-    public function __construct(private CategorieRepository $categorieRepository)
+    public function __construct(private ComposantRepository $composantRepository)
     {
 
     }
-    public function getCategories() {
-        return $this->categorieRepository->findAll();
+
+    public function mount(Composant $composant)
+    {
+        $this->composant = $this->composantRepository->find(1);
     }
+
 }

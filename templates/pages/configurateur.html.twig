@@ -2,8 +2,10 @@
 {% block title %}Pc Pas à pas - Configurateur{% endblock %}
 
 {% block body %}
-    {{ component('card_composant')}}
-    <div id="haut" {{ vue_component('panierComponent', {'panier': panier} )}}></div>
+    {{ component('select_categorie') }}
+
+
+    {# <div id="haut" {{ vue_component('panierComponent', {'panier': panier} )}}></div>
     <a href="{{ path('configurateur') }}#configdetails" class="text-success">-> Voir votre config en détails</a>
     <hr class="color-success"/>
     <h1 class='text-center text-success'>Ajoutez des composants à votre configuration</h1>
@@ -18,6 +20,6 @@
     <a href="{{ path('configurateur') }}#haut" class="text-success">-> Revenir à votre panier</a>
     <hr class="color-success"/>
     <div id="configdetails" {{ vue_component('configDetails', {'panier': panier} )}}></div>
-</div>
+</div> #}
 {% endblock %}
 

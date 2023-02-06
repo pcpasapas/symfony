@@ -59,6 +59,9 @@
     "php-flasher/flasher-symfony": {
         "version": "v1.13.1"
     },
+    "rompetomp/inertia-bundle": {
+        "version": "v2.4.2"
+    },
     "squizlabs/php_codesniffer": {
         "version": "3.7",
         "recipe": {
