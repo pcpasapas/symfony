@@ -21,5 +21,4 @@ return [
     Symfony\UX\LiveComponent\LiveComponentBundle::class => ['all' => true],
     Rompetomp\InertiaBundle\RompetompInertiaBundle::class => ['all' => true],
     Presta\SitemapBundle\PrestaSitemapBundle::class => ['all' => true],
-    Nucleos\SitemapBundle\NucleosSitemapBundle::class => ['all' => true],
 ];

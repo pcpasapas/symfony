@@ -1,3 +1,2 @@
 presta_sitemap:
-    dump_directory: /public
     default_section: default

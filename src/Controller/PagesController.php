@@ -67,7 +67,7 @@ class PagesController extends AbstractController
         ]);
     }
 
-    #[Route('/category', name: 'category', options: ['sitemap' => ['priority' => 0.7]])]
+    #[Route('/category', name: 'category', options: ['sitemap' => true])]
     public function category(
         Request $request,
         ManagerRegistry $doctrine,
@@ -120,19 +120,19 @@ class PagesController extends AbstractController
         ]);
     }
 
-    #[Route('/astuces', name: 'astuces', options: ['sitemap' => ['priority' => 0.7]])]
+    #[Route('/astuces', name: 'astuces')]
     public function astuces(): Response
     {
         return $this->render('pages/astuces.html.twig');
     }
 
-    #[Route('/tests', name: 'tests', options: ['sitemap' => ['priority' => 0.7]])]
+    #[Route('/tests', name: 'tests')]
     public function tests(): Response
     {
         return $this->render('pages/tests.html.twig');
     }
 
-    #[Route('/configurateur', name: 'configurateur', options: ['sitemap' => ['priority' => 0.7]])]
+    #[Route('/configurateur', name: 'configurateur', options: ['sitemap' => true])]
     public function configurateur(Security $security): Response
     {
         // Recuperation du panier de l'utilisateur ou alors création d'un panier
