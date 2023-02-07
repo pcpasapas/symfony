@@ -12,7 +12,8 @@ if (!Encore.isRuntimeEnvironmentConfigured()) {
   Encore.configureRuntimeEnvironment(process.env.NODE_ENV || "dev");
 }
 
-Encore.setOutputPath("public/build/")
+Encore
+  .setOutputPath("public/build/")
   .setPublicPath("/build")
 
   .addEntry("app", "./assets/app.js")
@@ -61,7 +62,12 @@ Encore.setOutputPath("public/build/")
      })
    )
 
+
+
+
 const fullConfig = Encore.getWebpackConfig();
+
+
 
 fullConfig.optimization = {
   minimize: true,

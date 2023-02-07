@@ -3,6 +3,7 @@
 
 namespace App\Controller;
 
+use V8Js;
 use App\Entity\Panier;
 use App\Entity\Categorie;
 use App\Entity\Composant;
@@ -22,6 +23,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class PagesController extends AbstractController
 {
+
     public function __construct(
         private CategorieRepository $categorieRepository,
         private ComposantRepository $composantRepository,

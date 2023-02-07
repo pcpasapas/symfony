@@ -6,7 +6,9 @@
         <a href="{{ path('configurateur') }}#configdetails" class="text-success">-> Voir votre config en détails</a>
         <hr class="color-success"/>
         <h1 class='text-center text-success'>Ajoutez des composants à votre configuration</h1>
+        {% if app.user == '' %}
         <p class="text-center">Merci de vous <a href="{{ path('app_login')}}" class="">connecter</a> ou de <a href="{{ path('app_register') }}" class="">créer votre compte</a> pour sauvegarder votre configuration</p>
+        {% endif %}
         {% for message in app.flashes('info') %}
             <div class="alert alert-info fixed alert-dismissible fade show">
                 {{ message }}

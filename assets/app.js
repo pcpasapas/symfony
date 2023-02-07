@@ -3,8 +3,8 @@
 
 // any CSS you import will output into a single css file (app.css in this case)
 import './styles/app.scss';
-import * as bootstrap from 'bootstrap'
-import * as Popper from "@popperjs/core"
+// import * as bootstrap from 'bootstrap'
+// import * as Popper from "@popperjs/core"
 import bsCustomFileInput from 'bs-custom-file-input';
 
 // start the Stimulus application

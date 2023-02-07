@@ -12,8 +12,11 @@
         {{ (composant.price / 100).toFixed(2).replace(".", ",") }} €
       </h5>
       <p class="card-text"></p>
+      <div v-if="composant.categorie.name === 'Alimentations'">
+        <p class="card-text">Puissance : {{ composant.puissance }} W</p>
+      </div>
       <p class="card-text" v-if="composant.format !== null">
-        <!-- Format : {{ formatMaxFn(composant.format) }} -->
+        Format : {{ formatMaxFn(composant.format) }}
       </p>
       <p class="card-text m-0" v-if="composant.socket !== null">
         Socket : {{ composant.socket }}

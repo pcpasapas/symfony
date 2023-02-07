@@ -9,7 +9,10 @@
     <div class="mb-5">
       <a href="{{ path('configurateur') }}" class="btn btn-primary btn-lg px-4">
         {% if panierUser == null %}
-          Commencez à configurer l'ordinateur de vos rêves
+          Commencez à configurer l'ordinateur de vos rêves</a>
+        {% if app.user == '' %}
+          <p class="">Merci de vous <a href="{{ path('app_login')}}" class="">connecter</a> ou de <a href="{{ path('app_register') }}" class="">créer votre compte</a> pour sauvegarder votre configuration</p>
+        {% endif %}
         {% else %}
           Poursuivez la configuration de votre ordinateur
         {% endif %}

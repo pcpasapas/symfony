@@ -34,10 +34,11 @@
       </tbody>
     </table>
     <p class="text-center alert alert-success fs-5 mb-2 mx-4 py-0">
-      Prix total de votre configuration :
-      <p class="mb-0">      {{ (prixTotalPanier / 100).toFixed(2).replace(".", ",") }}
-      €
-      </p>
+      Prix total de votre configuration : <br />
+      <span class="mb-0">
+        {{ (prixTotalPanier / 100).toFixed(2).replace(".", ",") }}
+        €
+      </span>
     </p>
   </div>
 </template>
