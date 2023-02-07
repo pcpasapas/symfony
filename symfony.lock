@@ -56,8 +56,14 @@
             "./config/packages/nelmio_cors.yaml"
         ]
     },
+    "nucleos/sitemap-bundle": {
+        "version": "4.4.0"
+    },
     "php-flasher/flasher-symfony": {
         "version": "v1.13.1"
+    },
+    "presta/sitemap-bundle": {
+        "version": "v3.3.0"
     },
     "rompetomp/inertia-bundle": {
         "version": "v2.4.2"

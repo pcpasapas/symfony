@@ -3,7 +3,6 @@
 
 namespace App\Controller;
 
-use V8Js;
 use App\Entity\Panier;
 use App\Entity\Categorie;
 use App\Entity\Composant;
@@ -32,10 +31,11 @@ class PagesController extends AbstractController
     ) {
     }
 
-    #[Route('/', name: 'homepage')]
+    #[Route('/', name: 'homepage', options: ['sitemap' => true])]
     public function index(Security $security): Response
     {
         $panier = $this->panierRepository->find(5);
+        $jeux = $this->jeuRepository->findAll();
         $user = $security->getUser();
         if ($user) {
             $userPanier = $this->panierRepository->findOneBy(['user' => $security->getuser()]);
@@ -45,10 +45,11 @@ class PagesController extends AbstractController
         return $this->render('pages/index.html.twig', [
             'panier' => $panier,
             'panierUser' => $userPanier,
+            'jeux' => $jeux,
         ]);
     }
 
-    #[Route('/jeux', name:'jeux')]
+    #[Route('/jeux', name:'jeux', options: ['sitemap' => true])]
     public function jeux(): Response
     {
         $jeux = $this->jeuRepository->findJeux();
@@ -57,7 +58,16 @@ class PagesController extends AbstractController
         ]);
     }
 
-    #[Route('/category', name: 'category')]
+    #[Route('/jeux/{slug}', name:'jeux_id')]
+    public function jeuxDetails(string $slug): Response
+    {
+        $jeu = $this->jeuRepository->findOneBy(['slug' => $slug]);
+        return $this->render('pages/jeux/jeu.html.twig', [
+            'jeu' => $jeu,
+        ]);
+    }
+
+    #[Route('/category', name: 'category', options: ['sitemap' => ['priority' => 0.7]])]
     public function category(
         Request $request,
         ManagerRegistry $doctrine,
@@ -110,19 +120,19 @@ class PagesController extends AbstractController
         ]);
     }
 
-    #[Route('/astuces', name: 'astuces')]
+    #[Route('/astuces', name: 'astuces', options: ['sitemap' => ['priority' => 0.7]])]
     public function astuces(): Response
     {
         return $this->render('pages/astuces.html.twig');
     }
 
-    #[Route('/tests', name: 'tests')]
+    #[Route('/tests', name: 'tests', options: ['sitemap' => ['priority' => 0.7]])]
     public function tests(): Response
     {
         return $this->render('pages/tests.html.twig');
     }
 
-    #[Route('/configurateur', name: 'configurateur')]
+    #[Route('/configurateur', name: 'configurateur', options: ['sitemap' => ['priority' => 0.7]])]
     public function configurateur(Security $security): Response
     {
         // Recuperation du panier de l'utilisateur ou alors création d'un panier

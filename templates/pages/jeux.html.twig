@@ -3,9 +3,11 @@
 {% block title %}Pc pas à pas - Jeux{% endblock %}
 
 {% block body %}
+<a href="{{ path('homepage') }}" class="text-success">-> Retour à l'accueil</a>
     {% for jeu in jeux %}
 
         <h1>{{jeu.name}}</h1>
+        <a href="{{ path('jeux_id', {slug : jeu.slug}) }}" class="btn btn-primary">Voir le détail</a>
         <div {{ vue_component('configDetailsMini',
         { 'panier' :
             {
@@ -19,35 +21,10 @@
                 'hdd' : jeu.panier.hdd,
             }
         }
-    )}}></div>
-        <div {{ vue_component('panierComponent',
-            { 'panier' :
-                {
-                    'boitier' : jeu.panier.boitier,
-                    'alimentation' : jeu.panier.alimentation,
-                    'processeur' : jeu.panier.processeur,
-                    'carte_mere' : jeu.panier.carteMere,
-                    'ram' : jeu.panier.ram,
-                    'carte_graphique' : jeu.panier.carteGraphique,
-                    'ssd' : jeu.panier.ssd,
-                    'hdd' : jeu.panier.hdd,
-                }
-            }
-        )}}></div>
-        <div   {{ vue_component('configDetails',
-        { 'panier' :
-            {
-                'boitier' : jeu.panier.boitier,
-                'alimentation' : jeu.panier.alimentation,
-                'processeur' : jeu.panier.processeur,
-                'carte_mere' : jeu.panier.carteMere,
-                'ram' : jeu.panier.ram,
-                'carte_graphique' : jeu.panier.carteGraphique,
-                'ssd' : jeu.panier.ssd,
-                'hdd' : jeu.panier.hdd,
-            }
-        }
-    )}}></div>
+        )}}>
+
+            </div>
+
     {% endfor %}
 
 {% endblock %}

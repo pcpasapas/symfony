@@ -3,13 +3,15 @@
 {% block title %}Pc pas à pas - Accueil{% endblock %}
 
 {% block body %}
-    <h1 class="pt-3">Créez votre pc pas à pas</h1>
+  <div class="alert alert-success mt-2">
+    <h1 class="p-0 m-0">Créez votre pc pas à pas</h1>
+  </div>
 
     <p class="fs-5 col-md-8">Configurez votre nouvel ordinateur sur mesure...</p>
     <div class="mb-5">
       <a href="{{ path('configurateur') }}" class="btn btn-primary btn-lg px-4">
         {% if panierUser == null %}
-          Commencez à configurer l'ordinateur de vos rêves</a>
+          Commencez à configurer votre ordinateur sur mesure</a>
         {% if app.user == '' %}
           <p class="">Merci de vous <a href="{{ path('app_login')}}" class="">connecter</a> ou de <a href="{{ path('app_register') }}" class="">créer votre compte</a> pour sauvegarder votre configuration</p>
         {% endif %}
@@ -18,7 +20,9 @@
         {% endif %}
       </a>
     </div>
-    <h1 class="pt-3">Les dernières configurations</h1>
+  <div class="alert alert-success">
+    <h1 class="p-0 m-0">Les dernières configurations</h1>
+  </div>
     <div {{ vue_component('configDetailsMini',
     { 'panier' :
         {
@@ -33,7 +37,16 @@
         }
     }
     )}}></div>
-    <h1 class="pt-3">Les différents composants d'un ordinateur</h1>
+    <div class="alert alert-success mt-2">
+      <a class="none" href="{{ path('jeux') }}"><h1 class="p-0 m-0">Les configurations recommandées pour les jeux</h1></a>
+    </div>
+        {% for jeu in jeux %}
+          <a class="none" href="{{ path('jeux_id', {slug : jeu.slug}) }}"><img class="imgJeu" src="images/jeux/{{jeu.slug}}.jpg"></a>
+        {% endfor %}
+        <div class="alert alert-success mt-2">
+          <h1 class="p-0 m-0">Les différents composants d'un ordinateur</h1>
+  </div>
+
     <div class="container">
       <img src="images/composition.jpg" class="mx-auto d-flex" alt="composants d'un ordinateur">
     </div>
@@ -42,6 +55,12 @@
       img
       {
         width: 100%;
+      }
+      .imgJeu {
+        width: 10%
+      }
+      .none {
+        text-decoration: none;
       }
     </style>
 {% endblock %}

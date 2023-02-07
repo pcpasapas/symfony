@@ -45,12 +45,7 @@ final class ComposantRepository extends ServiceEntityRepository
         }
     }
 
-    /**
-     * Summary of getResultsFilter
-     *
-     * @return array<mixed>
-     */
-    public function getResultsFilter(mixed $categorie)
+    public function getResultsFilter($categorie)
     {
         $message = '';
         $message2 = '';
@@ -64,10 +59,10 @@ final class ComposantRepository extends ServiceEntityRepository
         if ($currentUser === null) {
             $panier = $this->panierRepo->Find(1);
         } else {
-            $panier = $this->panierRepo->findOneBy(['user' => $this->security->getUser()]);
+            $panier = $this->panierRepo->findOneBy(['user' => $currentUser]);
         }
         // si on veut voir les boitiers
-        if ($categorie->getId() === '1') {
+        if ($categorie->getId() == '1') {
             // si la carte mere est deja dans le panier
             $carteMereChoisie = $panier->getCarteMere();
             if ($carteMereChoisie) {
@@ -81,7 +76,7 @@ final class ComposantRepository extends ServiceEntityRepository
         }
 
         // si on veut voir les processeurs
-        if ($categorie->getId() === '3') {
+        if ($categorie->getId() == '3') {
             // si la carte mere est deja dans le panier
             $carteMereChoisie = $panier->getCarteMere();
             if ($carteMereChoisie) {
@@ -93,7 +88,7 @@ final class ComposantRepository extends ServiceEntityRepository
             }
         }
         // si on veut voir les cartes mères
-        if ($categorie->getId() === '4') {
+        if ($categorie->getId() == '4') {
             // si le boitier est deja dans le panier
             $boitierChoisi = $panier->getBoitier();
             if ($boitierChoisi) {

@@ -24,6 +24,9 @@ class Jeu
     #[ORM\JoinColumn(nullable: false)]
     private ?Panier $panier = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $slug = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -49,6 +52,18 @@ class Jeu
     public function setPanier(Panier $panier): self
     {
         $this->panier = $panier;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(?string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }
