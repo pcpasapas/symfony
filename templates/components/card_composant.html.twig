@@ -1,0 +1,38 @@
+<div{{ attributes }}>
+    <div>
+    {% for composant in this.composants %}
+        <div class="card m-2 py-2" style="width: 18rem">
+    {# <img
+      :src="getImgUrl(composant.categorie.name, composant.id)"
+      class="card-img-top"
+      alt="image du composant"
+    /> #}
+    <div class="card-body">
+      <h5 class="card-title">{{ composant.marque }}</h5>
+      <h6 class="card-text">{{ composant.modele }}</h6>
+      <h5 class="card-title">
+        {# {{ (composant.price / 100).toFixed(2).replace(".", ",") }} € #}
+      </h5>
+      <p class="card-text"></p>
+      <div v-if="composant.categorie.name === 'Alimentations'">
+        <p class="card-text">Puissance : {{ composant.puissance }} W</p>
+      </div>
+      <p class="card-text" v-if="composant.format !== null">
+        {# Format : {{ formatMaxFn(composant.format) }} #}
+      </p>
+      {% if composant.socket != null %}
+      <p class="card-text m-0">
+        Socket : {{ composant.socket }}
+      </p>
+      {% endif %}
+      <p class="card-text" v-if="composant.cgProcesseur !== null">
+        Graphiques intégrés : {{ composant.cgProcesseur }}
+      </p>
+      <a :href="'/cart/' + composant.id" class="btn btn-primary shadow-lg"
+        >Ajouter à votre configuration</a
+      >
+    </div>
+  </div>
+    {% endfor %}
+</div>
+</div>

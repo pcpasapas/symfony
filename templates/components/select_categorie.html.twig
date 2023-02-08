@@ -1,0 +1,18 @@
+<div{{ attributes }}>
+    <div class='container'>
+        {{ categorieDebut }}
+    <select name="categorieSelect"
+            class="form-select mt-3"
+            data-model="categorieDebut"
+            data-action="live#$render">
+    {% for categorie in this.categories %}
+        <option value="{{categorie.id}}">{{ categorie.name}}</option>
+    {% endfor %}
+    </select>
+</div>
+{{ component('card_composant', {
+    categorie : categorieDebut,
+    'data-live-id': 'categorie-'~categorieDebut
+}) }}
+
+</div>
