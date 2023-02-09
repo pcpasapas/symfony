@@ -2,10 +2,40 @@
   "entrypoints": {
     "app": {
       "css": [
-        "/build/app.56defca9.css"
+        "http://localhost:8080/build/app.css"
       ],
       "js": [
-        "/build/app.c6bec457.js"
+        "http://localhost:8080/build/app.js"
+      ],
+      "jpg": [
+        "http://localhost:8080/build/images/24.4c476508.jpg",
+        "http://localhost:8080/build/images/7.2819f20d.jpg",
+        "http://localhost:8080/build/images/1.4aba04b4.jpg",
+        "http://localhost:8080/build/images/12.92a2a13f.jpg",
+        "http://localhost:8080/build/images/13.8189740d.jpg",
+        "http://localhost:8080/build/images/2.0a9da372.jpg",
+        "http://localhost:8080/build/images/15.f289870e.jpg",
+        "http://localhost:8080/build/images/23.586cd7ed.jpg",
+        "http://localhost:8080/build/images/25.2f5fe5ea.jpg",
+        "http://localhost:8080/build/images/28.1ed8341f.jpg",
+        "http://localhost:8080/build/images/10.756fc7ea.jpg",
+        "http://localhost:8080/build/images/11.f9e21505.jpg",
+        "http://localhost:8080/build/images/14.83e24c08.jpg",
+        "http://localhost:8080/build/images/21.845f4195.jpg",
+        "http://localhost:8080/build/images/17.9b8de405.jpg",
+        "http://localhost:8080/build/images/16.f308700a.jpg",
+        "http://localhost:8080/build/images/18.d94edc23.jpg",
+        "http://localhost:8080/build/images/22.77b11d81.jpg",
+        "http://localhost:8080/build/images/19.ea283461.jpg",
+        "http://localhost:8080/build/images/20.ed29bfe8.jpg",
+        "http://localhost:8080/build/images/26.5a2c6641.jpg",
+        "http://localhost:8080/build/images/27.7d605877.jpg",
+        "http://localhost:8080/build/images/8.5e400dbe.jpg",
+        "http://localhost:8080/build/images/9.c2e01701.jpg",
+        "http://localhost:8080/build/images/composition.4164e15a.jpg",
+        "http://localhost:8080/build/images/fifa_23.972bb2a5.jpg",
+        "http://localhost:8080/build/images/fortnite.5d43f540.jpg",
+        "http://localhost:8080/build/images/gta_v.71e3ef47.jpg"
       ]
     }
   }
