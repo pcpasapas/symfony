@@ -6,7 +6,6 @@ const TerserPlugin = require("terser-webpack-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const HtmlMinimizerPlugin = require("html-minimizer-webpack-plugin");
 const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
-const path = require('path')
 
 
 if (!Encore.isRuntimeEnvironmentConfigured()) {
